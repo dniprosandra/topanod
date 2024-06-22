@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="service_color_tree_view" model="ir.ui.view">
+            <field name="name">service.color.tree</field>
+            <field name="model">service.color</field>
+            <field name="arch" type="xml">
+                <tree editable="top" string="Service Color">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_color_act_window" model="ir.actions.act_window">
+            <field name="name">Service Color</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.color</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new Color.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

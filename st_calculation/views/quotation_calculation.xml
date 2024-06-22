@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Views-->
+        <record id="st_quotation_calculation_form_view" model="ir.ui.view">
+            <field name="name">st.quotation.calculation.form</field>
+            <field name="model">quotation.calculation</field>
+            <field name="arch" type="xml">
+                <form string="Quotation Calculation">
+                    <header>
+                        <button name="button_calculation_sent"
+                                string="Sent by email"
+                                title="Send Email with Calculation to Client and move to status 'Sent'"
+                                type="object"
+                                class="btn btn-primary"
+                                invisible="state != 'calculated'">
+                        </button>
+
+                        <button name="button_confirm_calculation"
+                                string="Confirm"
+                                type="object"
+                                title="Confirm Calculation and move to status 'Confirmed'"
+                                class="btn btn-primary"
+                                invisible="state != 'sent'">
+                        </button>
+
+                        <button name="button_to_production"
+                                string="To Production"
+                                type="object"
+                                title="Move Calculation to status 'In Production'"
+                                class="btn btn-primary"
+                                invisible="state != 'new'">
+                        </button>
+
+                        <button name="button_calculate"
+                                string="Calculate"
+                                type="object"
+                                class="btn btn-primary"
+                                invisible="state != 'in_production'"
+                                title="Move Calculation to status 'Calculated'">
+                        </button>
+
+                        <button name="button_reset_to_new"
+                                string="Reset"
+                                type="object"
+                                class="btn btn-primary"
+                                invisible="state != 'calculated'"
+                                title="Move Calculation to status 'New'">
+                        </button>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="new,in_production,calculated,sent,confirmed"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" invisible="state == 'draft'">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="rq_number" readonly="1"/>
+                                <field name="sale_order_id"/>
+                                <field name="calculation_create_date" string="Create Date"
+                                       readonly="1" invisible="state == 'draft'"/>
+                                <field name="in_production_date" readonly="1" invisible="in_production_date == False"/>
+                                <field name="calculation_date" readonly="1" invisible="calculation_date == False"/>
+                                <field name="currency_id"/>
+                            </group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="partner_ext_id"/>
+                                <field name="assigned_id"/>
+                                <field name="assigned_department_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="calculation_line" string="Calculation Line">
+                                <group>
+                                    <group>
+                                        <field name="delivery_cost" colspan="2"/>
+                                    </group>
+                                </group>
+                                <field name="calculation_line_ids"
+                                       readonly="state in ['calculated', 'sent', 'confirmed']">
+                                    <tree name="calc_line" editable="bottom">
+                                        <field name="partner_id" column_invisible="True"/>
+                                        <field name="product_id" domain="[('partner_id', '=', partner_id)]"/>
+                                        <field name="name"/>
+                                        <field name="product_code"/>
+                                        <field name="qty"/>
+                                        <field name="coating_type"/>
+                                        <field name="coating_cost"/>
+                                        <field name="additional_service_ids" widget="many2many_tags"/>
+                                        <field name="additional_service_cost"/>
+                                        <field name="shape"/>
+                                        <field name="color"/>
+                                        <field name="length"/>
+                                        <field name="height"/>
+                                        <field name="width"/>
+                                        <field name="area"/>
+                                        <field name="weight"/>
+                                        <field name="amount"/>
+                                        <field name="total_amount"/>
+                                    </tree>
+                                </field>
+                                <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                    <group colspan="4">
+                                        <field colspan="2" name="note" nolabel="1"
+                                               placeholder="Terms and conditions..."/>
+                                    </group>
+
+
+                                    <group class="oe_subtotal_footer" colspan="2" name="expense_total">
+                                        <field colspan="2" name="total_product_amount" readonly="1"/>
+                                        <div class="oe_inline o_td_label">
+                                            <label for="delivery_cost"/>
+                                        </div>
+                                        <field name="delivery_cost" nolabel="1" readonly="1"/>
+                                        <div class="oe_inline o_td_label">
+                                            <label for="total_amount"/>
+                                        </div>
+                                        <field name="total_amount" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="st_quotation_calculation_tree_view" model="ir.ui.view">
+            <field name="name">st.quotation.calculation.tree</field>
+            <field name="model">quotation.calculation</field>
+            <field name="arch" type="xml">
+                <tree string="Quotation Calculation">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="sale_order_id"/>
+                    <field name="assigned_id"/>
+                    <field name="assigned_department_id"/>
+                    <field name="state"/>
+                    <field name="total_amount"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="st_quotation_calculation_search_view" model="ir.ui.view">
+            <field name="name">st.quotation.calculation.search</field>
+            <field name="model">quotation.calculation</field>
+            <field name="arch" type="xml">
+                <search string="Quotation Calculation">
+                    <field name="name" string="name"/>
+                    <field name="rq_number" string="RQ"/>
+                    <field name="partner_ext_id" string="Partner Ext. id"/>
+                    <group expand="1" string="Group By">
+                        <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                        <filter name="group_by_sale_order" string="Quotation" context="{'group_by':'sale_order_id'}"/>
+                        <filter name="group_by_customer" string="Customer" context="{'group_by': 'partner_id'}"/>
+                        <filter name="group_by_assignee" string="Assigned User" context="{'group_by': 'assigned_id'}"/>
+                        <filter name="group_by_assignee_department" string="Assigned Department"
+                                context="{'group_by': 'assigned_department_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!--Actions-->
+        <record id="st_quotation_calculation_act_window" model="ir.actions.act_window">
+            <field name="name">Quotation Calculation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quotation.calculation</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new Quotation Calculation.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

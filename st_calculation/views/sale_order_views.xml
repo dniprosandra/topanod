@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Views-->
+        <record id="st_crm_calculation_form_view" model="ir.ui.view">
+            <field name="name">st_crm_calculation.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button class="btn btn-primary"
+                            name="button_create_calculation"
+                            type="object"
+                            invisible="state != 'draft'"
+                            string="New Calculation"/>
+                </xpath>
+                <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                    <button name="action_view_calculation"
+                            invisible="calculation_count == 0"
+                            type="object"
+                            class="oe_stat_button"
+                            string="Calculations"
+                            icon="fa-pencil-square-o">
+                        <field name="calculation_count" widget="statinfo" string="Calculation"/>
+                    </button>
+                </xpath>
+            </field>
+
+        </record>
+
+    </data>
+</odoo>
