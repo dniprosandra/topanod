@@ -19,6 +19,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
 
         #  Data
         'data/calculation_sequence.xml',

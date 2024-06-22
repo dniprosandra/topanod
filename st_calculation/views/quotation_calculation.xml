@@ -92,9 +92,9 @@
                                         <field name="product_code"/>
                                         <field name="qty"/>
                                         <field name="coating_type"/>
-                                        <field name="coating_cost"/>
+                                        <field name="coating_cost" groups="st_calculation.st_calculation_group_manager"/>
                                         <field name="additional_service_ids" widget="many2many_tags"/>
-                                        <field name="additional_service_cost"/>
+                                        <field name="additional_service_cost" groups="st_calculation.st_calculation_group_manager"/>
                                         <field name="shape"/>
                                         <field name="color"/>
                                         <field name="length"/>
@@ -102,8 +102,8 @@
                                         <field name="width"/>
                                         <field name="area"/>
                                         <field name="weight"/>
-                                        <field name="amount"/>
-                                        <field name="total_amount"/>
+                                        <field name="amount" groups="st_calculation.st_calculation_group_manager"/>
+                                        <field name="total_amount" groups="st_calculation.st_calculation_group_manager"/>
                                     </tree>
                                 </field>
                                 <group name="note_group" col="6" class="mt-2 mt-md-0">
@@ -147,7 +147,7 @@
                     <field name="assigned_id"/>
                     <field name="assigned_department_id"/>
                     <field name="state"/>
-                    <field name="total_amount"/>
+                    <field name="total_amount" groups="st_calculation.st_calculation_group_manager"/>
 
                 </tree>
             </field>
