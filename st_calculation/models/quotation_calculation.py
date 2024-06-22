@@ -138,15 +138,27 @@ class QuotationCalculation(models.Model):
         self.ensure_one()
         if not self.assigned_department_id:
             raise ValidationError(
-                _("You can not move status to 'in_production' with out assigned department.")
+                _("You can not move status to 'In Production' without assigned department.")
+            )
+        if not self._is_line_ids():
+            raise ValidationError(
+                _("You can not move status to 'In Production' without calculation lines.")
             )
         self.write({
             'state': 'in_production',
             'in_production_date': date.today()
         })
 
+    def _is_line_ids(self):
+        if self.calculation_line_ids:
+            return True
+
     def button_calculate(self):
         # Some validation before write
+        if not self._is_line_ids():
+            raise ValidationError(
+                _("You can not move status to 'Calculated' without calculation lines.")
+            )
         self.write({
             'state': 'calculated',
             'calculation_date': date.today()

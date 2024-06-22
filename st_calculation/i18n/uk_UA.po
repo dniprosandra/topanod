@@ -651,9 +651,27 @@ msgstr "Ш"
 #: code:addons/st_calculation/models/quotation_calculation.py:0
 #, python-format
 msgid ""
-"You can not move status to 'in_production' with out assigned department."
+"You can not move status to 'In Production' without assigned department."
 msgstr ""
-"Ви не можете змінити статус на 'на_виробництві' без призначеного відділу."
+"Ви не можете змінити статус на 'На Виробництві' без призначеного відділу."
+
+#. module: st_calculation
+#. odoo-python
+#: code:addons/st_calculation/models/quotation_calculation.py:0
+#, python-format
+msgid ""
+"You can not move status to 'In Production' without calculation lines."
+msgstr ""
+"Ви не можете змінити статус на 'На Виробництві' без доданих деталей."
+
+#. module: st_calculation
+#. odoo-python
+#: code:addons/st_calculation/models/quotation_calculation.py:0
+#, python-format
+msgid ""
+"You can not move status to 'Calculated' without calculation lines."
+msgstr ""
+"Ви не можете змінити статус на 'Розраховано' без доданих деталей."
 
 #. module: st_calculation
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
