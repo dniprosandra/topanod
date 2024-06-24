@@ -3,39 +3,39 @@
     <data noupdate="1">
 
         <record id="st_calculation_color_green" model="service.color">
-            <field name="name">Green</field>
+            <field name="name">Зелений</field>
         </record>
 
         <record id="st_calculation_color_red" model="service.color">
-            <field name="name">Red</field>
+            <field name="name">Червоний</field>
         </record>
 
         <record id="st_calculation_color_blue" model="service.color">
-            <field name="name">Blue</field>
+            <field name="name">Синій</field>
         </record>
 
         <record id="st_calculation_color_black" model="service.color">
-            <field name="name">Black</field>
+            <field name="name">Чорний</field>
         </record>
 
         <record id="st_calculation_color_purple" model="service.color">
-            <field name="name">Purple</field>
+            <field name="name">Фіолетовий</field>
         </record>
 
         <record id="st_calculation_color_orange" model="service.color">
-            <field name="name">Orange</field>
+            <field name="name">Помаранчевий</field>
         </record>
 
         <record id="st_calculation_color_camo" model="service.color">
-            <field name="name">Camo</field>
+            <field name="name">Камо</field>
         </record>
 
         <record id="st_calculation_color_olive" model="service.color">
-            <field name="name">Olive</field>
+            <field name="name">Олива</field>
         </record>
 
         <record id="st_calculation_color_gold" model="service.color">
-            <field name="name">Gold</field>
+            <field name="name">Золотий</field>
         </record>
 
     </data>

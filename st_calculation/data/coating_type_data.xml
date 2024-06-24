@@ -3,29 +3,28 @@
     <data noupdate="1">
 
         <record id="st_calculation_coating_type_color_anodizing" model="coating.type">
-            <field name="name">Color anodizing</field>
+            <field name="name">Кольорове анодування</field>
         </record>
 
         <record id="st_calculation_coating_type_columnless_anodizing" model="coating.type">
-            <field name="name">Columnless anodizing</field>
+            <field name="name">Безколурне анодування</field>
         </record>
 
         <record id="st_calculation_coating_type_hard_anodizing" model="coating.type">
-            <field name="name">Hard anodizing</field>
+            <field name="name">Тверде анодування</field>
         </record>
 
         <record id="st_calculation_coating_type_black_anodizing" model="coating.type">
-            <field name="name">Black anodizing</field>
+            <field name="name">Чорне анодування</field>
         </record>
 
         <record id="st_calculation_coating_type_black_hard_anodizing" model="coating.type">
-            <field name="name">Black hard anodizing</field>
+            <field name="name">Чорне тверде анодування</field>
         </record>
 
         <record id="st_calculation_coating_type_splash_anodizing" model="coating.type">
-            <field name="name">Splash anodizing</field>
+            <field name="name">Splash анодування </field>
         </record>
-
 
     </data>
 </odoo>
