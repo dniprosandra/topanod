@@ -204,11 +204,11 @@ class QuotationCalculation(models.Model):
                 _logger.info(_("Created product '%s' for calculation '%s'.") % (product_id.name, self.name))
 
     def _add_line_to_quotation(self):
-        for line in self.calculation_line_ids:
-            self.env['sale.order.line'].create({
+        quotation_line = [(0, 0, {
                 'order_id': self.sale_order_id.id,
                 'product_id': line.product_id.id,
                 'product_uom_qty': line.qty,
                 'price_unit': line.amount,
                 'calculation_id': self.id,
-            })
+            }) for line in self.calculation_line_ids]
+        self.sale_order_id.write({'order_line': quotation_line})
