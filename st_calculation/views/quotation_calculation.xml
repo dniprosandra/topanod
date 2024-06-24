@@ -3,6 +3,7 @@
     <data>
 
         <!--Views-->
+        <!--Form-->
         <record id="st_quotation_calculation_form_view" model="ir.ui.view">
             <field name="name">st.quotation.calculation.form</field>
             <field name="model">quotation.calculation</field>
@@ -80,21 +81,24 @@
                             <page name="calculation_line" string="Calculation Line">
                                 <group>
                                     <group>
-                                        <field name="delivery_cost" colspan="2"/>
+                                        <field name="delivery_cost" colspan="2"
+                                               groups="st_calculation.st_calculation_group_manager"/>
                                     </group>
                                 </group>
                                 <field name="calculation_line_ids"
                                        readonly="state in ['calculated', 'sent', 'confirmed']">
                                     <tree name="calc_line" editable="bottom">
                                         <field name="partner_id" column_invisible="True"/>
-                                        <field name="product_id" domain="[('partner_id', '=', partner_id)]"/>
-                                        <field name="name"/>
+                                        <field name="product_id" domain="[('product_tmpl_id.partner_id', '=', partner_id)]"/>
+                                        <field name="name" readonly="product_id != False"/>
                                         <field name="product_code"/>
                                         <field name="qty"/>
                                         <field name="coating_type"/>
-                                        <field name="coating_cost" groups="st_calculation.st_calculation_group_manager"/>
+                                        <field name="coating_cost"
+                                               groups="st_calculation.st_calculation_group_manager"/>
                                         <field name="additional_service_ids" widget="many2many_tags"/>
-                                        <field name="additional_service_cost" groups="st_calculation.st_calculation_group_manager"/>
+                                        <field name="additional_service_cost"
+                                               groups="st_calculation.st_calculation_group_manager"/>
                                         <field name="shape"/>
                                         <field name="color"/>
                                         <field name="length"/>
@@ -103,7 +107,8 @@
                                         <field name="area"/>
                                         <field name="weight"/>
                                         <field name="amount" groups="st_calculation.st_calculation_group_manager"/>
-                                        <field name="total_amount" groups="st_calculation.st_calculation_group_manager"/>
+                                        <field name="total_amount"
+                                               groups="st_calculation.st_calculation_group_manager"/>
                                     </tree>
                                 </field>
                                 <group name="note_group" col="6" class="mt-2 mt-md-0">
@@ -111,9 +116,8 @@
                                         <field colspan="2" name="note" nolabel="1"
                                                placeholder="Terms and conditions..."/>
                                     </group>
-
-
-                                    <group class="oe_subtotal_footer" colspan="2" name="expense_total">
+                                    <group class="oe_subtotal_footer" colspan="2" name="expense_total"
+                                           groups="st_calculation.st_calculation_group_manager">
                                         <field colspan="2" name="total_product_amount" readonly="1"/>
                                         <div class="oe_inline o_td_label">
                                             <label for="delivery_cost"/>
@@ -136,12 +140,14 @@
             </field>
         </record>
 
+        <!--Tree-->
         <record id="st_quotation_calculation_tree_view" model="ir.ui.view">
             <field name="name">st.quotation.calculation.tree</field>
             <field name="model">quotation.calculation</field>
             <field name="arch" type="xml">
                 <tree string="Quotation Calculation">
                     <field name="name"/>
+                    <field name="rq_number"/>
                     <field name="partner_id"/>
                     <field name="sale_order_id"/>
                     <field name="assigned_id"/>
@@ -153,6 +159,7 @@
             </field>
         </record>
 
+        <!--Search-->
         <record id="st_quotation_calculation_search_view" model="ir.ui.view">
             <field name="name">st.quotation.calculation.search</field>
             <field name="model">quotation.calculation</field>
@@ -161,6 +168,8 @@
                     <field name="name" string="name"/>
                     <field name="rq_number" string="RQ"/>
                     <field name="partner_ext_id" string="Partner Ext. id"/>
+                    <filter string="Sent" name="sent" domain="[('state', '=', 'sent')]"/>
+                    <filter string="In Production" name="in_production" domain="[('state', '=', 'in_production')]"/>
                     <group expand="1" string="Group By">
                         <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
                         <filter name="group_by_sale_order" string="Quotation" context="{'group_by':'sale_order_id'}"/>

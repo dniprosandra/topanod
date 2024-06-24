@@ -5,32 +5,32 @@ class QuotationCalculationLine(models.Model):
     _name = 'quotation.calculation.line'
     _description = 'Quotation Calculation Line'
 
-    #  Relations fields
     quotation_calculation_id = fields.Many2one(comodel_name="quotation.calculation")
     partner_id = fields.Many2one(related='quotation_calculation_id.partner_id')
-    product_id = fields.Many2one(
-        comodel_name="product.template"
+    product_id = fields.Many2one(comodel_name="product.product")
+    product_template_id = fields.Many2one(
+        comodel_name='product.template',
+        precompute=True,
+        compute='_compute_product_tmpl'
     )
     coating_type = fields.Many2one(comodel_name="coating.type", required=True)
-    additional_service_ids = fields.Many2many(comodel_name="additional.service", required=True)
+    additional_service_ids = fields.Many2many(
+        comodel_name="additional.service", required=True
+    )
     color = fields.Many2one(comodel_name='service.color', required=True)
     currency_id = fields.Many2one(
         related='quotation_calculation_id.currency_id'
     )
-
-    #  Char/Selection fields
     name = fields.Char(
-        required=True,
-        # related='product_id.name'
+        required=True, precompute=True,
+        compute="_compute_name",
+        store=True, readonly=False
     )
     shape = fields.Char()
     product_code = fields.Char(
-        # related="product_id.default_code",
-        compute='_compute_product_data',
+        related='product_template_id.default_code',
         string="Product Code"
     )
-
-    # Integer/Float fields
     qty = fields.Integer(required=True, default=1)
     length = fields.Float(required=True)
     height = fields.Float(required=True)
@@ -39,8 +39,6 @@ class QuotationCalculationLine(models.Model):
         # compute="_compute_area", store=True
     )
     weight = fields.Float()
-
-    # Monetary fields
     coating_cost = fields.Monetary(currency_field="currency_id")
     additional_service_cost = fields.Monetary(currency_field="currency_id")
     amount = fields.Monetary(
@@ -53,14 +51,15 @@ class QuotationCalculationLine(models.Model):
     )
 
     @api.depends('product_id')
-    def _compute_product_data(self):
+    def _compute_product_tmpl(self):
+        for line in self:
+            line.product_template_id = line.product_id.product_tmpl_id.id
+
+    @api.depends('product_template_id')
+    def _compute_name(self):
         for rec in self:
-            if rec.product_id:
-                rec.product_code = rec.product_id.default_code
-                rec.name = rec.product_id.name
-            else:
-                rec.product_code = ""
-                rec.name = ""
+            if rec.product_template_id:
+                rec.name = rec.product_template_id.name
 
     @api.depends('length', "width")
     def _compute_area(self):

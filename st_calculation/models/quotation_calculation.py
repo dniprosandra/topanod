@@ -1,7 +1,11 @@
+import logging
 from datetime import date
 
 from odoo import fields, models, api, _
 from odoo.exceptions import ValidationError
+
+
+_logger = logging.getLogger(__name__)
 
 
 class QuotationCalculation(models.Model):
@@ -26,7 +30,8 @@ class QuotationCalculation(models.Model):
     )
     assigned_department_id = fields.Many2one(comodel_name="hr.department", tracking=True)
     calculation_line_ids = fields.One2many(
-        comodel_name='quotation.calculation.line', inverse_name="quotation_calculation_id"
+        comodel_name='quotation.calculation.line',
+        inverse_name="quotation_calculation_id"
     )
     currency_id = fields.Many2one(
         comodel_name='res.currency',
@@ -55,7 +60,9 @@ class QuotationCalculation(models.Model):
     note = fields.Text()
 
     # Integer/Float/Monetary fields
-    total_product_amount = fields.Monetary(compute="_compute_total_amount", currency_field="currency_id")
+    total_product_amount = fields.Monetary(
+        compute="_compute_total_amount", currency_field="currency_id"
+    )
     total_amount = fields.Monetary(compute="_compute_total_amount", currency_field="currency_id")
     delivery_cost = fields.Monetary(currency_field="currency_id")
 
@@ -103,8 +110,10 @@ class QuotationCalculation(models.Model):
             kwargs['notify_author'] = self.env.user.partner_id.id in (kwargs.get('partner_ids') or [])
         return super(QuotationCalculation, self.with_context(**qc_ctx)).message_post(**kwargs)
 
-    def button_calculation_sent(self):
-        """ Opens a wizard to compose an email, with relevant mail template loaded by default """
+    def button_calculation_sent(self) -> dict:
+        """ Opens a wizard to compose an email,
+        with relevant mail template loaded by default
+        """
         self.ensure_one()
         ctx = {
             'default_model': 'quotation.calculation',
@@ -128,6 +137,7 @@ class QuotationCalculation(models.Model):
         }
 
     def button_reset_to_new(self):
+        """ Move Calculation state to 'New' """
         self.write({
             'state': 'new',
             'calculation_date': False,
@@ -135,6 +145,7 @@ class QuotationCalculation(models.Model):
         })
 
     def button_to_production(self):
+        """ Move Calculation state to 'In Production' """
         self.ensure_one()
         if not self.assigned_department_id:
             raise ValidationError(
@@ -149,15 +160,15 @@ class QuotationCalculation(models.Model):
             'in_production_date': date.today()
         })
 
-    def _is_line_ids(self):
-        if self.calculation_line_ids:
-            return True
-
     def button_calculate(self):
-        # Some validation before write
+        """ Move Calculation status to 'Calculated' """
         if not self._is_line_ids():
             raise ValidationError(
                 _("You can not move status to 'Calculated' without calculation lines.")
+            )
+        if not self.assigned_department_id:
+            raise ValidationError(
+                _("You can not move status to 'In Production' without assigned department.")
             )
         self.write({
             'state': 'calculated',
@@ -165,14 +176,39 @@ class QuotationCalculation(models.Model):
         })
 
     def button_confirm_calculation(self):
-        self.ensure_one()
-        res = self.sale_order_id.write({'order_line': [
-            (0, 0, {
+        """ Confirm Calculation and move state to 'Confirmed' """
+        for rec in self:
+            rec._no_product_in_line_create()
+            rec._add_line_to_quotation()
+            rec.write({'state': 'confirmed'})
+
+    def _is_line_ids(self) -> bool:
+        if self.calculation_line_ids:
+            return True
+
+    def _no_product_in_line_create(self):
+        """
+        Create a new product if the item product_id field is not
+        filled in some calculation lines
+        """
+        for line in self.calculation_line_ids:
+            if not line.product_id:
+                product_tmpl_id = self.env['product.template'].create({
+                    'name': line.name,
+                    "partner_id": line.partner_id.id,
+                })
+                product_id = self.env['product.product'].search([
+                    ('product_tmpl_id', '=', product_tmpl_id.id)
+                ], limit=1)
+                line.product_id = product_id.id
+                _logger.info(_("Created product '%s' for calculation '%s'.") % (product_id.name, self.name))
+
+    def _add_line_to_quotation(self):
+        for line in self.calculation_line_ids:
+            self.env['sale.order.line'].create({
+                'order_id': self.sale_order_id.id,
                 'product_id': line.product_id.id,
                 'product_uom_qty': line.qty,
                 'price_unit': line.amount,
                 'calculation_id': self.id,
             })
-            for line in self.calculation_line_ids]})
-        if res:
-            self.write({'state': 'confirmed'})

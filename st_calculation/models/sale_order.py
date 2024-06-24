@@ -57,4 +57,4 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    calculation_id = fields.Many2one()
+    calculation_id = fields.Many2one(comodel_name='quotation.calculation', string='Calculation')
