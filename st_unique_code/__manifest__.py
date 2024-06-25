@@ -8,20 +8,18 @@
     'description': """
 Generate unique code for partner and for product
 """,
-    'category': 'Sales/CRM',
+    'category': 'Sales',
     'website': 'https://smarttek.solutions/',
     'depends': [
-        # 'crm',
-        'hr',
-        'contacts',
-        'sale_management',
+        'product',
     ],
     'data': [
-        # 'security/ir.model.access.csv',
-        # 'security/security.xml',
+        #  Data
+        'data/code_sequence.xml',
 
         #  Views
-        # 'views/sale_order_views.xml',
+        'views/res_partner_views.xml',
+        'views/product_template_views.xml',
     ],
     'demo': [],
     'installable': True,
