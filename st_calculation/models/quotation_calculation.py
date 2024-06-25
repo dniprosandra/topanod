@@ -19,6 +19,10 @@ class QuotationCalculation(models.Model):
         comodel_name='sale.order',
         domain=[('state', '=', 'draft')]
     )
+    company_id = fields.Many2one(
+        string='Company', related='sale_order_id.company_id',
+        store=True, readonly=True
+    )
     partner_id = fields.Many2one(
         string='Customer',
         related='sale_order_id.partner_id',

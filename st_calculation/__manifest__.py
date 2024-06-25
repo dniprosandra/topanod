@@ -13,7 +13,6 @@
     'depends': [
         # 'crm',
         'hr',
-        'mail',
         'contacts',
         'sale_management',
     ],
