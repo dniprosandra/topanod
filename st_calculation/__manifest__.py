@@ -15,6 +15,7 @@
         'hr',
         'contacts',
         'sale_management',
+        'st_unique_code',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -25,6 +26,7 @@
         'data/color_data.xml',
         'data/coating_type_data.xml',
         'data/additional_service_data.xml',
+        'data/mail_template.xml',
 
         #  Views
         'views/sale_order_views.xml',
@@ -32,8 +34,6 @@
         'views/additional_service_views.xml',
         'views/coating_type_views.xml',
         'views/service_color_views.xml',
-        'views/res_partner_views.xml',
-        'views/product_template_views.xml',
 
         'views/st_calculation_menus.xml'
     ],

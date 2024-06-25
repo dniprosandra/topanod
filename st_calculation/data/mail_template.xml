@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
 
         <record id="email_notification_template" model="mail.template">
             <field name="name">EMAIL Notification</field>
             <field name="model_id" ref="st_calculation.model_quotation_calculation"/>
-            <field name="subject">{{ object.company_id.name }}</field>
-            <field name="email_from">{{ user.email }}</field>
-            <field name="partner_to">{{ object.partner_id.id }}</field>
             <field name="description">Notification Email</field>
             <field name="body_html" type="html">
-                <div style="margin: 0px; padding: 0px;">
-                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                        <t t-set="doc_name" t-value="object.name"></t>
-                        Шановний <t t-out="object.partner_id.name or ''">користувач</t>,
-                        <br>
-                        </br>
-                        Майте на увазі, що ваша
-                        <t t-out="doc_name or ''">комерційна пропозиція</t> <strong t-out="object.name or ''">
-                        S00052</strong>
-                        <t t-if="object.total_amount">
-                            (з референсом: <t t-out="object.total_amount or ''">S00052</t> )
-                        </t>
-                        скасовано. Тому з вас більше не стягується плата за це замовлення.
-                        Якщо потрібне будь-яке відшкодування, це буде здійснено в найзручніший спосіб.
-                        <br></br>
-                        Не соромтеся звертатися до нас, якщо у вас виникли запитання.
-                        <br/>
-                    </p>
+                <div>
+                    Dear <t t-esc="assignee_name"/>,
+                    <br/><br/>
+                    <span style="margin-top: 8px;">You have been assigned to the <t
+                            t-esc="model_description or 'document'"/> <t t-esc="name"/>.</span>
                 </div>
             </field>
         </record>
+
+        <template id="calculation_message_user_assigned">
+            <div>
+                Dear <t t-esc="assignee_name"/>,
+                <br/><br/>
+                <span style="margin-top: 8px;">You have been assigned to the <t
+                        t-esc="model_description or 'document'"/> <t t-esc="name"/>.</span>
+                <br/>
+            </div>
+        </template>
+
+        <template id="calculation_message_user_assigned_status_change">
+            <div>
+                Dear <t t-esc="assignee_name"/>,
+                <br/><br/>
+                <span style="margin-top: 8px;">Calculation <t t-esc="name"/> status has been change to '<t t-esc="state"/>'.</span>
+                <br/>
+            </div>
+        </template>
     </data>
 </odoo>

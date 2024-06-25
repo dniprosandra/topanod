@@ -10,7 +10,6 @@ class QuotationCalculationLine(models.Model):
     product_id = fields.Many2one(comodel_name="product.product")
     product_template_id = fields.Many2one(
         comodel_name='product.template',
-        precompute=True,
         compute='_compute_product_tmpl'
     )
     coating_type = fields.Many2one(comodel_name="coating.type", required=True)
