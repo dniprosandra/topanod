@@ -27,7 +27,7 @@ class QuotationCalculationLine(models.Model):
     )
     shape = fields.Char()
     product_code = fields.Char(
-        related='product_template_id.default_code',
+        related='product_template_id.unique_code',
         string="Product Code"
     )
     qty = fields.Integer(required=True, default=1)
