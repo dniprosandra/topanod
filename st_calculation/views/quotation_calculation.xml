@@ -93,6 +93,8 @@
                                         <field name="name" readonly="product_id != False"/>
                                         <field name="product_code"/>
                                         <field name="qty"/>
+                                        <field name="calculated_qty"/>
+                                        <field name="loaded_qty"/>
                                         <field name="coating_type"/>
                                         <field name="coating_cost"
                                                groups="st_calculation.st_calculation_group_manager"/>

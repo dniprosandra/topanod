@@ -27,7 +27,7 @@ class QuotationCalculationLine(models.Model):
     )
     shape = fields.Char()
     product_code = fields.Char(
-        related='product_template_id.unique_code',
+        related='product_id.product_tmpl_id.unique_code',
         string="Product Code"
     )
     qty = fields.Integer(required=True, default=1)
@@ -38,6 +38,8 @@ class QuotationCalculationLine(models.Model):
         # compute="_compute_area", store=True
     )
     weight = fields.Float()
+    loaded_qty = fields.Integer(compute="_compute_loaded_qty", readonly=False, store=True)
+    calculated_qty = fields.Integer(compute="_compute_calculated_qty", readonly=True, store=True)
     coating_cost = fields.Monetary(currency_field="currency_id")
     additional_service_cost = fields.Monetary(currency_field="currency_id")
     amount = fields.Monetary(
@@ -48,6 +50,8 @@ class QuotationCalculationLine(models.Model):
         compute="_compute_total_amount",
         currency_field="currency_id"
     )
+
+    tmp_field = fields.Integer()
 
     @api.depends('product_id')
     def _compute_product_tmpl(self):
@@ -74,3 +78,19 @@ class QuotationCalculationLine(models.Model):
     def _compute_total_amount(self):
         for rec in self:
             rec.total_amount = rec.amount * rec.qty
+
+    @api.depends('qty')
+    def _compute_calculated_qty(self):
+        for rec in self:
+            if rec.qty > 0:
+                #  Need formula for calculation
+
+                #  Added for example
+                rec.calculated_qty = rec.qty
+
+    @api.depends('calculated_qty')
+    def _compute_loaded_qty(self):
+        for rec in self:
+            #  By default, loaded_qty equal calculated_qty.
+            #  User can change loaded_qty value
+            rec.loaded_qty = rec.calculated_qty

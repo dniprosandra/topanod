@@ -80,7 +80,6 @@ class QuotationCalculation(models.Model):
 
     _sql_constraints = [
         ('rq_number_unique', 'unique(rq_number)', "RQ Number must be unique!"),
-        ('partner_ext_id_unique', 'unique(partner_ext_id)', "Customer external id must be unique!")
     ]
 
     @api.model
