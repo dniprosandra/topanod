@@ -86,7 +86,7 @@
                                     </group>
                                 </group>
                                 <field name="calculation_line_ids"
-                                       readonly="state in ['calculated', 'sent', 'confirmed']">
+                                       readonly="state in ['confirmed']">
                                     <tree name="calc_line" editable="bottom">
                                         <field name="partner_id" column_invisible="True"/>
                                         <field name="product_id" domain="[('product_tmpl_id.partner_id', '=', partner_id)]"/>
