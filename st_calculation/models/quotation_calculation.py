@@ -240,6 +240,7 @@ class QuotationCalculation(models.Model):
             }) for line in self.calculation_line_ids]
         self.sale_order_id.write({'order_line': quotation_line})
 
+    #  Email notification
     def _notify_assignee(self, mail_vals: list, tmpl_type=None) -> int:
         """ Prepare assignee data for sending email notifications """
         counter = 0
@@ -275,7 +276,6 @@ class QuotationCalculation(models.Model):
             subject=_(subject),
             body=assignation_msg,
             partner_ids=tmpl_values['partner_ids'],
-            record_name=record_name,
             email_layout_xmlid='mail.mail_notification_layout',
             model_description=tmpl_values['model_description'],
             mail_auto_delete=False
