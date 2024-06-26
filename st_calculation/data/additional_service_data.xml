@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="st_calculation_additional_service_titanium_anodizing" model="additional.service">
+            <field name="name">Анодування титану</field>
+        </record>
+
+        <record id="st_calculation_additional_service_etching" model="additional.service">
+            <field name="name">Травлення</field>
+        </record>
+
+        <record id="st_calculation_additional_service_aluminum_passivation" model="additional.service">
+            <field name="name">Пасивація алюмінію</field>
+        </record>
+
+        <record id="st_calculation_additional_service_glass_jet_processing" model="additional.service">
+            <field name="name">Скло-струменева обробка</field>
+        </record>
+
+        <record id="st_calculation_additional_service_powder_painting" model="additional.service">
+            <field name="name">Порошкове фарбування </field>
+        </record>
+    </data>
+</odoo>

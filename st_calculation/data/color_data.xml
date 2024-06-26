@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="st_calculation_color_green" model="service.color">
+            <field name="name">Зелений</field>
+        </record>
+
+        <record id="st_calculation_color_red" model="service.color">
+            <field name="name">Червоний</field>
+        </record>
+
+        <record id="st_calculation_color_blue" model="service.color">
+            <field name="name">Синій</field>
+        </record>
+
+        <record id="st_calculation_color_black" model="service.color">
+            <field name="name">Чорний</field>
+        </record>
+
+        <record id="st_calculation_color_purple" model="service.color">
+            <field name="name">Фіолетовий</field>
+        </record>
+
+        <record id="st_calculation_color_orange" model="service.color">
+            <field name="name">Помаранчевий</field>
+        </record>
+
+        <record id="st_calculation_color_camo" model="service.color">
+            <field name="name">Камо</field>
+        </record>
+
+        <record id="st_calculation_color_olive" model="service.color">
+            <field name="name">Олива</field>
+        </record>
+
+        <record id="st_calculation_color_gold" model="service.color">
+            <field name="name">Золотий</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Coating"
+                  id="st_calculation_coating_root"
+                  sequence="40"
+                  parent="sale.product_menu_catalog"/>
+
+            <menuitem name="Coating Type"
+                      id="coating_type_item"
+                      parent="st_calculation_coating_root"
+                      sequence="1"
+                      action="coating_type_act_window"/>
+
+            <menuitem name="Color"
+                      id="service_color_item"
+                      parent="st_calculation_coating_root"
+                      sequence="5"
+                      action="service_color_act_window"/>
+
+            <menuitem name="Additional services"
+                      id="additional_service_item"
+                      parent="sale.product_menu_catalog"
+                      sequence="50"
+                      action="additional_service_act_window"/>
+
+        <menuitem name="Calculations"
+                  id="st_calculation_calculation_item"
+                  sequence="25"
+                  parent="sale.sale_order_menu"
+                  action="st_quotation_calculation_act_window"/>
+
+    </data>
+</odoo>

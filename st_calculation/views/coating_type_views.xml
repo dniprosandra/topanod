@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="coating_type_tree_view" model="ir.ui.view">
+            <field name="name">coating.type.tree</field>
+            <field name="model">coating.type</field>
+            <field name="arch" type="xml">
+                <tree string="Coating Type" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="coating_type_act_window" model="ir.actions.act_window">
+            <field name="name">Coating Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">coating.type</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to add new Coating Type.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

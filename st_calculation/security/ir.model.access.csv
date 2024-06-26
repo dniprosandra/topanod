@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_quotation_calculation,access.quotation_calculation,model_quotation_calculation,base.group_user,1,1,1,1
+access_quotation_calculation_line,access.quotation_calculation_line,model_quotation_calculation_line,base.group_user,1,1,1,1
+access_quotation_calculation_line,access.quotation_calculation_line,model_quotation_calculation_line,base.group_user,1,1,1,1
+access_coating_type,access.coating_type,model_coating_type,base.group_user,1,1,1,1
+access_service_color,access.service_color,model_service_color,base.group_user,1,1,1,1
+access_additional_service,access.additional_service,model_additional_service,base.group_user,1,1,1,1
