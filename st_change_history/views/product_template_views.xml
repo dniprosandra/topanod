@@ -15,7 +15,7 @@
                                 <field name="author_id"/>
                                 <field name="comment_date" string="Date"/>
                                 <field name="qty"/>
-                                <!-- <field name="loaded_qty"/> -->
+                                 <field name="loaded_qty"/>
                                 <field name="comment"/>
                             </tree>
                         </field>

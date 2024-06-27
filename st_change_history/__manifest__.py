@@ -15,12 +15,6 @@
     ],
     'data': [
         'security/ir.model.access.csv',
-        # 'security/security.xml',
-
-        #  Data
-        # 'data/mail_template.xml',
-
-        #  Views
         'views/product_template_views.xml',
         'views/quotation_calculation_line.xml',
     ],
