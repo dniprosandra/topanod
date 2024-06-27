@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+    <record model="ir.module.category" id="st_calculation_group">
+            <field name="name">Calculation</field>
+            <field name="sequence">10</field>
+        </record>
+    <record id="st_calculation_group_user" model="res.groups">
+            <field name="name">Calculation User</field>
+            <field name="category_id" ref="st_calculation.st_calculation_group" />
+        </record>
+
+        <record id="st_calculation_group_manager" model="res.groups">
+            <field name="name">Calculation Manager</field>
+            <field name="implied_ids" eval="[(4, ref('st_calculation.st_calculation_group_user'))]" />
+            <field name="category_id" ref="st_calculation.st_calculation_group" />
+        </record>
+</data>
+</odoo>
