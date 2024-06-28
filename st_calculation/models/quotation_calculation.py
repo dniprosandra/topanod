@@ -72,9 +72,9 @@ class QuotationCalculation(models.Model):
     delivery_cost = fields.Monetary(currency_field="currency_id")
 
     #  Date fields
-    calculation_create_date = fields.Date(required=True)
-    calculation_date = fields.Date(string='Calculation Date')
-    in_production_date = fields.Date(string='In Production Date')
+    calculation_create_date = fields.Date(required=True, copy=False)
+    calculation_date = fields.Date(string='Calculation Date', copy=False)
+    in_production_date = fields.Date(string='In Production Date', copy=False)
 
     # Boolean fields
     active = fields.Boolean(string='Active', default=True)
