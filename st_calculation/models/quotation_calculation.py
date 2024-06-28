@@ -35,7 +35,8 @@ class QuotationCalculation(models.Model):
     assigned_department_id = fields.Many2one(comodel_name="hr.department", tracking=True)
     calculation_line_ids = fields.One2many(
         comodel_name='quotation.calculation.line',
-        inverse_name="quotation_calculation_id"
+        inverse_name="quotation_calculation_id",
+        copy=True
     )
     currency_id = fields.Many2one(
         comodel_name='res.currency',
