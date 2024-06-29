@@ -1,8 +1,6 @@
 import os
-import base64
 
 from odoo import fields, models, _
-from odoo.tools import human_size
 
 
 class ImportProductWizard(models.Model):
