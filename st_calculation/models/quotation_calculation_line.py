@@ -12,11 +12,11 @@ class QuotationCalculationLine(models.Model):
         comodel_name='product.template',
         compute='_compute_product_tmpl'
     )
-    coating_type = fields.Many2one(comodel_name="coating.type", required=True)
+    coating_type = fields.Many2one(comodel_name="coating.type")
     additional_service_ids = fields.Many2many(
-        comodel_name="additional.service", required=True
+        comodel_name="additional.service"
     )
-    color = fields.Many2one(comodel_name='service.color', required=True)
+    color = fields.Many2one(comodel_name='service.color')
     currency_id = fields.Many2one(
         related='quotation_calculation_id.currency_id'
     )
@@ -30,7 +30,7 @@ class QuotationCalculationLine(models.Model):
         related='product_id.product_tmpl_id.unique_code',
         string="Product Code"
     )
-    qty = fields.Integer(required=True, default=1)
+    qty = fields.Integer(default=1)
     length = fields.Float(required=True)
     height = fields.Float(required=True)
     width = fields.Float(required=True)
