@@ -5,15 +5,28 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     partner_id = fields.Many2one(comodel_name='res.partner', string="Customer")
-    unique_code = fields.Char(string="Unique Code", compute="_compute_unique_code", store=True, readonly=True)
+    unique_code = fields.Char(string="Unique Code", store=True, readonly=True)
 
-    @api.depends('partner_id')
-    def _compute_unique_code(self):
-        for product in self:
-            product.unique_code = self._get_unique_code() if product.partner_id else ""
+    @api.model
+    def create(self, vals_list):
+        if 'partner_id' in vals_list and vals_list['partner_id']:
+            vals_list['unique_code'] = self._get_unique_code(vals_list['partner_id'])
+        return super(ProductTemplate, self).create(vals_list)
 
-    def _get_unique_code(self):
-        partner_ext_id = self.partner_id.partner_ext_id
+    def write(self, vals):
+        if 'partner_id' in vals:
+            for rec in self:
+                partner_id = vals.get('partner_id')
+                if partner_id:
+                    if partner_id != rec.partner_id:
+                        vals['unique_code'] = rec._get_unique_code(partner_id)
+                else:
+                    vals['unique_code'] = ""
+        return super(ProductTemplate, self).write(vals)
+
+    def _get_unique_code(self, partner_id: int) -> str:
+        """ Create unique code for product based on partner_ext_id """
+        partner_ext_id = self.env['res.partner'].browse(partner_id).partner_ext_id
         if partner_ext_id:
             next_code = self._get_next_code()
             code = f"{partner_ext_id}-{next_code}"
@@ -21,9 +34,6 @@ class ProductTemplate(models.Model):
             code = ""
         return code
 
-    def _get_next_code(self):
+    def _get_next_code(self) -> str:
         next_code = self.env['ir.sequence'].next_by_code('product.unique.code')
         return next_code.lstrip("0")
-
-
-
