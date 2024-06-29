@@ -5,7 +5,7 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     partner_id = fields.Many2one(comodel_name='res.partner', string="Customer")
-    unique_code = fields.Char(string="Unique Code", store=True, readonly=True)
+    unique_code = fields.Char(string="Unique Code", readonly=True)
 
     @api.model
     def create(self, vals_list):
