@@ -9,7 +9,12 @@
                 <form string="Choose PDF To Import">
                     <sheet>
                         <group>
-                            <field name="attachment_ids" widget="many2many_binary"/>
+                            <group>
+                                <div colspan="2">
+                                    <field name="attachment_ids" widget="many2many_binary" string="Choose file(s)"
+                                           nolabel="1"/>
+                                </div>
+                            </group>
                         </group>
                     </sheet>
                     <footer>

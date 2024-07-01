@@ -1,12 +1,19 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class QuotationCalculationLine(models.Model):
     _inherit = 'quotation.calculation.line'
 
-    file_url = fields.Char(string='URL')
+    file_url = fields.Char(string='URL', compute="_compute_file_url")
 
-    # TODO: write method for deleting url if file was deleted
+    @api.depends('product_template_id.attached_file')
+    def _compute_file_url(self):
+        for rec in self:
+            file = rec.product_template_id.attached_file
+            if file:
+                rec.file_url = file.local_url
+            else:
+                rec.file_url = ""
 
     def open_doc(self):
         self.ensure_one()

@@ -16,10 +16,21 @@ class ImportProductWizard(models.Model):
 
     def import_product(self):
         counter = 0
-        for file in self.attachment_ids:
+        attachment_len = len(self.attachment_ids)
+        exist_product = ""
+        attachment = self.attachment_ids
+        for file in attachment:
+            file_name = self.get_file_name(file.name)
+            product_search = self.env['product.template'].search_count([('name', '=', file_name)])
+            if product_search:
+                exist_product += f"{file_name};\n "
+                attach = self.env['ir.attachment'].search([('id', '=', file.id)])
+                attach.unlink()
+                continue
             if self._add_product_to_calculation(file):
                 counter += 1
-        return self._get_notification(counter)
+
+        return self._get_notification(counter, attachment_len, exist_product)
 
     def _add_product_to_calculation(self, file):
         file_name = self.get_file_name(file.name)
@@ -28,18 +39,16 @@ class ImportProductWizard(models.Model):
             'partner_id': self.calculation_id.partner_id.id,
         }
         product_id = self._create_product_from_pdf(product_vals)
-        if product_id:
-            # Create document for a product
-            document = self._create_document(product_id, file)
+        # Create document for a product
+        document = self._create_document(product_id, file)
+        product_id.product_tmpl_id.attached_file = document.id
 
-            #  Add product to calculation
-            result = self.calculation_id.calculation_line_ids = ([(0, 0, {
-                'product_id': product_id.id,
-                'file_url': document.local_url,
-            })])
-            if result:
-                return result
-        file.unlink()
+        #  Add product to calculation
+        result = self.calculation_id.calculation_line_ids = ([(0, 0, {
+            'product_id': product_id.id,
+        })])
+        if result:
+            return result
 
     def _create_document(self, product_id, file):
         """ Create attached document fo the product template """
@@ -55,38 +64,25 @@ class ImportProductWizard(models.Model):
     def _create_product_from_pdf(self, data: dict):
         """ Create product document from file name """
         product = self.env['product.template']
-        product_search = product.search_count([('name', '=', data['name'])])
-        if not product_search:
-            product_tmpl_id = self.env['product.template'].create(data)
-            product_id = self.env['product.product'].search([
-                ('product_tmpl_id', '=', product_tmpl_id.id)
-            ], limit=1)
-            return product_id
+        product_tmpl_id = product.create(data)
+        product_id = self.env['product.product'].search([
+            ('product_tmpl_id', '=', product_tmpl_id.id)
+        ], limit=1)
+        return product_id
 
     def get_file_name(self, file_name: str) -> str:
         """ Get file name without extension """
         name = os.path.splitext(file_name)[0]
         return name
 
-    def _get_notification(self, counter: int) -> dict:
+    def _get_notification(self, counter: int, attach_count: int, exist_product: str) -> dict:
         """ Create notification action """
-        # TODO: Write condition to change notification text for success or not import.
-        attach_count = len(self.attachment_ids)
-        msg = _("Imported %s product from %s" % (counter, attach_count))
-        notify_type = 'warning' if attach_count != counter else 'success'
+        msg = _("Imported %s product from %s . \n") % (counter, attach_count)
+        notify_type = 'warning' if counter == 0 or exist_product else 'success'
         title = _("Product Import")
-
-        # Wizard stay opened
-        # notification = {
-        #     'type': 'ir.actions.client',
-        #     'tag': 'display_notification',
-        #     'params': {
-        #         'title': title,
-        #         'type': notify_type,
-        #         'message': msg,
-        #         'sticky': True,
-        #     },
-        # }
+        if exist_product:
+            msg += _("\n Product(s) already exist: \n")
+            msg += exist_product
 
         # Wizard closed
         notification = {
@@ -96,7 +92,7 @@ class ImportProductWizard(models.Model):
                 'title': title,
                 'message': msg,
                 'type': notify_type,
-                'sticky': True,  # True/False will display for few seconds if false
+                'sticky': False,
                 'next': {'type': 'ir.actions.act_window_close'},
             }
         }
