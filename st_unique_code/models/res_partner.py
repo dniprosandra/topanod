@@ -10,13 +10,11 @@ class ResPartner(models.Model):
         ('partner_ext_id_unique', 'unique(partner_ext_id)', "External ID must be unique!"),
     ]
 
-    @api.model
-    def create(self, vals):
-        if isinstance(vals, dict):
-            vals = [vals]
-        for val in vals:
-            val['partner_ext_id'] = self._get_partner_code()
-        return super(ResPartner, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            vals['partner_ext_id'] = self._get_partner_code()
+        return super(ResPartner, self).create(vals_list)
 
     def _get_partner_code(self):
         code = self.env['ir.sequence'].next_by_code('partner.unique.code')
