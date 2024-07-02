@@ -83,12 +83,13 @@ class QuotationCalculation(models.Model):
         ('rq_number_unique', 'unique(rq_number)', "RQ Number must be unique!"),
     ]
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
-        vals_list['rq_number'] = f"{self.env['ir.sequence'].next_by_code('st.calculation')}"
-        vals_list['name'] = f"C{vals_list['rq_number']}"
-        vals_list['state'] = 'new'
-        vals_list['calculation_create_date'] = date.today()
+        for vals in vals_list:
+            vals['rq_number'] = f"{self.env['ir.sequence'].next_by_code('st.calculation')}"
+            vals['name'] = f"C{vals['rq_number']}"
+            vals['state'] = 'new'
+            vals['calculation_create_date'] = date.today()
         return super(QuotationCalculation, self).create(vals_list)
 
     def write(self, vals):
