@@ -93,14 +93,16 @@
                                         <field name="name" readonly="product_id != False"/>
                                         <field name="product_code"/>
                                         <field name="qty"/>
-                                        <field name="coating_type"/>
+                                        <field name="calculated_qty"/>
+                                        <field name="loaded_qty"/>
+                                        <field name="coating_type" required="1"/>
                                         <field name="coating_cost"
                                                groups="st_calculation.st_calculation_group_manager"/>
-                                        <field name="additional_service_ids" widget="many2many_tags"/>
+                                        <field name="additional_service_ids" required="1" widget="many2many_tags"/>
                                         <field name="additional_service_cost"
                                                groups="st_calculation.st_calculation_group_manager"/>
                                         <field name="shape"/>
-                                        <field name="color"/>
+                                        <field name="color" required="1"/>
                                         <field name="length"/>
                                         <field name="height"/>
                                         <field name="width"/>

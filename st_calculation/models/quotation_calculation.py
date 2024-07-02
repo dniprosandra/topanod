@@ -35,7 +35,8 @@ class QuotationCalculation(models.Model):
     assigned_department_id = fields.Many2one(comodel_name="hr.department", tracking=True)
     calculation_line_ids = fields.One2many(
         comodel_name='quotation.calculation.line',
-        inverse_name="quotation_calculation_id"
+        inverse_name="quotation_calculation_id",
+        copy=True
     )
     currency_id = fields.Many2one(
         comodel_name='res.currency',
@@ -71,24 +72,24 @@ class QuotationCalculation(models.Model):
     delivery_cost = fields.Monetary(currency_field="currency_id")
 
     #  Date fields
-    calculation_create_date = fields.Date(required=True)
-    calculation_date = fields.Date(string='Calculation Date')
-    in_production_date = fields.Date(string='In Production Date')
+    calculation_create_date = fields.Date(required=True, copy=False)
+    calculation_date = fields.Date(string='Calculation Date', copy=False)
+    in_production_date = fields.Date(string='In Production Date', copy=False)
 
     # Boolean fields
     active = fields.Boolean(string='Active', default=True)
 
     _sql_constraints = [
         ('rq_number_unique', 'unique(rq_number)', "RQ Number must be unique!"),
-        ('partner_ext_id_unique', 'unique(partner_ext_id)', "Customer external id must be unique!")
     ]
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
-        vals_list['rq_number'] = f"{self.env['ir.sequence'].next_by_code('st.calculation')}"
-        vals_list['name'] = f"C{vals_list['rq_number']}"
-        vals_list['state'] = 'new'
-        vals_list['calculation_create_date'] = date.today()
+        for vals in vals_list:
+            vals['rq_number'] = f"{self.env['ir.sequence'].next_by_code('st.calculation')}"
+            vals['name'] = f"C{vals['rq_number']}"
+            vals['state'] = 'new'
+            vals['calculation_create_date'] = date.today()
         return super(QuotationCalculation, self).create(vals_list)
 
     def write(self, vals):
