@@ -8,11 +8,12 @@ class QuotationCalculationLine(models.Model):
 
     comment = fields.Text(string='Comment')
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
         result = super(QuotationCalculationLine, self).create(vals_list)
-        if 'comment' in vals_list:
-            result._add_history_record(vals_list['comment'])
+        for vals in vals_list:
+            if 'comment' in vals:
+                result._add_history_record(vals['comment'])
         return result
 
     def write(self, vals):

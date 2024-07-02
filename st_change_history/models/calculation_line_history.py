@@ -10,7 +10,7 @@ class CalculationHistory(models.Model):
         string="Calculation Line", comodel_name="quotation.calculation.line",
     )
     calculation_id = fields.Many2one(related="line_id.quotation_calculation_id")
-    product_tmpl_id = fields.Many2one(related="line_id.product_template_id")
+    product_tmpl_id = fields.Many2one(related="line_id.product_id.product_tmpl_id")
     author_id = fields.Many2one(comodel_name="res.users")
     qty = fields.Integer(related="line_id.qty")
     loaded_qty = fields.Integer(related="line_id.loaded_qty")
