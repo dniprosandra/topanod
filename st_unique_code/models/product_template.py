@@ -7,10 +7,11 @@ class ProductTemplate(models.Model):
     partner_id = fields.Many2one(comodel_name='res.partner', string="Customer")
     unique_code = fields.Char(string="Unique Code", readonly=True)
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
-        if 'partner_id' in vals_list and vals_list['partner_id']:
-            vals_list['unique_code'] = self._get_unique_code(vals_list['partner_id'])
+        for vals in vals_list:
+            if 'partner_id' in vals and vals['partner_id']:
+                vals['unique_code'] = self._get_unique_code(vals['partner_id'])
         return super(ProductTemplate, self).create(vals_list)
 
     def write(self, vals):
