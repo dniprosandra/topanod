@@ -1,0 +1,59 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* st_calculation_activity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-02 18:12+0000\n"
+"PO-Revision-Date: 2024-07-02 18:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: st_calculation_activity
+#: model:mail.activity.type,summary:st_calculation_activity.st_calculation_notification_activity
+msgid "Assigned calculation"
+msgstr "Призначений розрахунок"
+
+#. module: st_calculation_activity
+#. odoo-python
+#: code:addons/st_calculation_activity/models/quotation_calculation.py:0
+#: code:addons/st_calculation_activity/models/quotation_calculation.py:0
+#, python-format
+msgid "Calculation %(calc)s for customer %(customer)s"
+msgstr "Розрахунок %(calc)s для клієнта %(customer)s"
+
+#. module: st_calculation_activity
+#: model:mail.activity.type,name:st_calculation_activity.st_calculation_notification_activity
+msgid "Calculations"
+msgstr "Розрахунки"
+
+#. module: st_calculation_activity
+#: model_terms:ir.ui.view,arch_db:st_calculation_activity.st_quotation_calculation_search_view_inherit
+msgid "Future Activities"
+msgstr ""
+
+#. module: st_calculation_activity
+#: model_terms:ir.ui.view,arch_db:st_calculation_activity.st_quotation_calculation_search_view_inherit
+msgid "Late Activities"
+msgstr ""
+
+#. module: st_calculation_activity
+#: model:ir.model,name:st_calculation_activity.model_quotation_calculation
+msgid "Quotation Calculation"
+msgstr "Розрахунок"
+
+#. module: st_calculation_activity
+#: model_terms:ir.ui.view,arch_db:st_calculation_activity.st_quotation_calculation_search_view_inherit
+msgid "Show all calculations for which the next action date is before today"
+msgstr "Показати всі розрахунки, для яких наступна дата дії до сьогоднішнього дня"
+
+#. module: st_calculation_activity
+#: model_terms:ir.ui.view,arch_db:st_calculation_activity.st_quotation_calculation_search_view_inherit
+msgid "Today Activities"
+msgstr ""
