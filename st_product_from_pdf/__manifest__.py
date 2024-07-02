@@ -2,7 +2,7 @@
 
 {
     'name': 'Product From PDF',
-    'version': '17.0.0.0.0',
+    'version': '17.0.0.1.0',
     'summary': 'Generate products from PDF ',
     'sequence': 10,
     'description': """

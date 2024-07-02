@@ -6,10 +6,10 @@ class QuotationCalculationLine(models.Model):
 
     file_url = fields.Char(string='URL', compute="_compute_file_url")
 
-    @api.depends('product_template_id.attached_file')
+    @api.depends('product_id.product_tmpl_id.attached_file')
     def _compute_file_url(self):
         for rec in self:
-            file = rec.product_template_id.attached_file
+            file = rec.product_id.attached_file
             if file:
                 rec.file_url = file.local_url
             else:

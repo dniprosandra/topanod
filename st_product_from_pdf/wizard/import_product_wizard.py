@@ -21,14 +21,19 @@ class ImportProductWizard(models.Model):
         attachment = self.attachment_ids
         for file in attachment:
             file_name = self.get_file_name(file.name)
-            product_search = self.env['product.template'].search_count([('name', '=', file_name)])
-            if product_search:
-                exist_product += f"{file_name};\n "
-                attach = self.env['ir.attachment'].search([('id', '=', file.id)])
-                attach.unlink()
-                continue
-            if self._add_product_to_calculation(file):
-                counter += 1
+            if file_name:
+                # TODO: Find another way to search existing products
+                product_search = self.env['product.template'].search_count([('name', '=', file_name)])
+                # Delete attachment if product exist
+                if product_search:
+                    exist_product += f"{file_name};\n "
+                    self._delete_attachment(file.id)
+                    continue
+                if self._add_product_to_calculation(file):
+                    counter += 1
+            else:
+                # Delete attachment if no name
+                self._delete_attachment(file.id)
 
         return self._get_notification(counter, attachment_len, exist_product)
 
@@ -39,9 +44,10 @@ class ImportProductWizard(models.Model):
             'partner_id': self.calculation_id.partner_id.id,
         }
         product_id = self._create_product_from_pdf(product_vals)
-        # Create document for a product
+
+        # Attach document to the product
         document = self._create_document(product_id, file)
-        product_id.product_tmpl_id.attached_file = document.id
+        product_id.attached_file = document.id
 
         #  Add product to calculation
         result = self.calculation_id.calculation_line_ids = ([(0, 0, {
@@ -56,18 +62,14 @@ class ImportProductWizard(models.Model):
             'datas': file.datas,
             'ir_attachment_id': file.id,
             'type': 'binary',
-            'res_id': product_id.product_tmpl_id.id,
-            'res_model': product_id.product_tmpl_id._name,
+            'res_id': product_id.id,
+            'res_model': product_id._name,
         })
         return product_doc
 
     def _create_product_from_pdf(self, data: dict):
         """ Create product document from file name """
-        product = self.env['product.template']
-        product_tmpl_id = product.create(data)
-        product_id = self.env['product.product'].search([
-            ('product_tmpl_id', '=', product_tmpl_id.id)
-        ], limit=1)
+        product_id = self.env['product.product'].create(data)
         return product_id
 
     def get_file_name(self, file_name: str) -> str:
@@ -97,3 +99,7 @@ class ImportProductWizard(models.Model):
             }
         }
         return notification
+
+    def _delete_attachment(self, attachment_id):
+        attach = self.env['ir.attachment'].search([('id', '=', attachment_id)])
+        return attach.unlink()
