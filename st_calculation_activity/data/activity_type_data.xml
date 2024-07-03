@@ -1,0 +1,10 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Activities -->
+        <record id="st_calculation_notification_activity" model="mail.activity.type">
+            <field name="name">Assigned Calculation</field>
+            <field name="icon">fa-calc</field>
+            <field name="res_model">quotation.calculation</field>
+        </record>
+    </data>
+</odoo>

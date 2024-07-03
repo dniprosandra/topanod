@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="st_quotation_calculation_search_view_inherit" model="ir.ui.view">
+            <field name="name"></field>
+            <field name="model">quotation.calculation</field>
+            <field name="inherit_id" ref="st_calculation.st_quotation_calculation_search_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='in_production']" position="after">
+                    <separator/>
+                    <filter invisible="1" string="Late Activities" name="activities_overdue"
+                            domain="[('my_activity_date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                            help="Show all calculations for which the next action date is before today"/>
+                    <filter invisible="1" string="Today Activities" name="activities_today"
+                            domain="[('my_activity_date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                            domain="[('my_activity_date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="st_quotation_calculation_form_view_inherit" model="ir.ui.view">
+            <field name="name"></field>
+            <field name="model">quotation.calculation</field>
+            <field name="inherit_id" ref="st_calculation.st_quotation_calculation_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('oe_chatter')]" position="inside">
+                    <field name="activity_ids"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
