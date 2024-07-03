@@ -94,12 +94,13 @@ class QuotationCalculation(models.Model):
 
     def write(self, vals):
         result = super().write(vals)
-        assigned_id = vals.get('assigned_id', False)
-        department_id = vals.get('assigned_department_id', False)
-        if result and assigned_id or department_id:
-            for line in self:
-                notify_data = line._get_assignee_data(assigned_id, department_id)
-                line._notify_assignee(notify_data)
+        # Send notification when assigned manager or assigned department changed
+        # assigned_id = vals.get('assigned_id', False)
+        # department_id = vals.get('assigned_department_id', False)
+        # if result and assigned_id or department_id:
+        #     for line in self:
+        #         notify_data = line._get_assignee_data(assigned_id, department_id)
+        #         line._notify_assignee(notify_data)
         return result
 
     @api.depends('sale_order_id.currency_id')
@@ -160,8 +161,8 @@ class QuotationCalculation(models.Model):
         })
 
         # Notify assigned manager about state bin reset to 'New'
-        mail_vals = self._get_assignee_data(assigned_id=True)
-        self._notify_assignee(mail_vals, 'state')
+        # mail_vals = self._get_assignee_data(assigned_id=True)
+        # self._notify_assignee(mail_vals, 'state')
 
     def button_to_production(self):
         """ Move Calculation state to 'In Production' """
@@ -180,8 +181,8 @@ class QuotationCalculation(models.Model):
         })
 
         # Notify assigned department about state change to 'In Production'
-        mail_vals = self._get_assignee_data(department_id=True)
-        self._notify_assignee(mail_vals, 'state')
+        # mail_vals = self._get_assignee_data(department_id=True)
+        # self._notify_assignee(mail_vals, 'state')
 
     def button_calculate(self):
         """ Move Calculation status to 'Calculated' """
@@ -199,8 +200,8 @@ class QuotationCalculation(models.Model):
         })
 
         # Notify assigned manager about state change to 'Calculated'
-        mail_vals = self._get_assignee_data(assigned_id=True)
-        self._notify_assignee(mail_vals, 'state')
+        # mail_vals = self._get_assignee_data(assigned_id=True)
+        # self._notify_assignee(mail_vals, 'state')
 
     def button_confirm_calculation(self):
         """ Confirm Calculation and move state to 'Confirmed' """
@@ -242,74 +243,73 @@ class QuotationCalculation(models.Model):
         self.sale_order_id.write({'order_line': quotation_line})
 
     #  Email notification
-    def _notify_assignee(self, mail_vals: list, tmpl_type=None) -> int:
-        """ Prepare assignee data for sending email notifications """
-        counter = 0
+    # def _notify_assignee(self, mail_vals: list, tmpl_type=None) -> int:
+    #     """ Prepare assignee data for sending email notifications """
+    #     counter = 0
+    #
+    #     #  Get values to put it into template
+    #     tmpl_values = self._tmpl_values()
+    #
+    #     #  Prepare email data one-by-one. We have 2 emails max
+    #     for val in mail_vals:
+    #         tmpl_values.update({'assignee_name': val['name']})
+    #         if tmpl_type is None:
+    #             tmpl_type = 'assignee'
+    #         tmpl_values.update({'partner_ids': val['partner_ids']})
+    #
+    #         #  Sending email
+    #         self._send_email_notification(tmpl_values, tmpl_type)
+    #         counter += 1
+    #     return counter
 
-        #  Get values to put it into template
-        tmpl_values = self._tmpl_values()
+    # def _send_email_notification(self, tmpl_values: dict, tmpl_type: str):
+    #     """ Send email notification """
+    #     record_name = tmpl_values['name']
+    #     subject = _('You have been assigned to %s') % record_name
+    #     if tmpl_type == 'state':
+    #         state = self.state.capitalize().replace('_', ' ')
+    #         subject = _("Calculation status has been change to %s") % state
+    #         tmpl_values.update({'state': state})
+    #     assignation_msg = self.env['ir.qweb']._render(
+    #         template=self._get_template_id(tmpl_type), values=tmpl_values
+    #     )
+    #     assignation_msg = self.env['mail.render.mixin']._replace_local_links(assignation_msg)
+    #     self.message_notify(
+    #         subject=_(subject),
+    #         body=assignation_msg,
+    #         partner_ids=tmpl_values['partner_ids'],
+    #         email_layout_xmlid='mail.mail_notification_layout',
+    #         model_description=tmpl_values['model_description'],
+    #         mail_auto_delete=False
+    #     )
 
-        #  Prepare email data one-by-one. We have 2 emails max
-        for val in mail_vals:
-            tmpl_values.update({'assignee_name': val['name']})
-            if tmpl_type is None:
-                tmpl_type = 'assignee'
-            tmpl_values.update({'partner_ids': val['partner_ids']})
+    # def _tmpl_values(self) -> dict:
+    #     """ Return values to set in template"""
+    #     tmpl_values = {
+    #         'model_description': self.env['ir.model']._get(self._name).display_name,
+    #         'access_link': self._notify_get_action_link('view'),
+    #         'name': self.display_name,
+    #     }
+    #     return tmpl_values
 
-            #  Sending email
-            self._send_email_notification(tmpl_values, tmpl_type)
-            counter += 1
-        return counter
-
-    def _send_email_notification(self, tmpl_values: dict, tmpl_type: str):
-        """ Send email notification """
-        record_name = tmpl_values['name']
-        subject = _('You have been assigned to %s') % record_name
-        if tmpl_type == 'state':
-            state = self.state.capitalize().replace('_', ' ')
-            subject = _("Calculation status has been change to %s") % state
-            tmpl_values.update({'state': state})
-        assignation_msg = self.env['ir.qweb']._render(
-            template=self._get_template_id(tmpl_type), values=tmpl_values
-        )
-        assignation_msg = self.env['mail.render.mixin']._replace_local_links(assignation_msg)
-        self.message_notify(
-            subject=_(subject),
-            body=assignation_msg,
-            partner_ids=tmpl_values['partner_ids'],
-            email_layout_xmlid='mail.mail_notification_layout',
-            model_description=tmpl_values['model_description'],
-            mail_auto_delete=False
-        )
-
-    def _tmpl_values(self) -> dict:
-        """ Return values to set in template"""
-        tmpl_values = {
-            'model_description': self.env['ir.model']._get(self._name).display_name,
-            'access_link': self._notify_get_action_link('view'),
-            'name': self.display_name,
-        }
-        return tmpl_values
-
-    def _get_assignee_data(self, assigned_id=False, department_id=False) -> list:
-        """ Get the `email` and `name` for email notifications. """
-        data = []
-        if assigned_id:
-            data.append({
-                "partner_ids": self.assigned_id.partner_id.ids,
-                'name': self.assigned_id.sudo().name
-            })
-        if department_id:
-            data.append({
-                "partner_ids": self.assigned_department_id.manager_id.user_partner_id.ids,
-                'name': _("Department %s") % self.assigned_department_id.sudo().name
-            })
-        return data
-
-    def _get_template_id(self, tmpl_type: str) -> str:
-        if tmpl_type == 'state':
-            tmpl = 'st_calculation.calculation_message_user_assigned_status_change'
-        else:
-            tmpl = 'st_calculation.calculation_message_user_assigned'
-        return tmpl
-
+    # def _get_assignee_data(self, assigned_id=False, department_id=False) -> list:
+    #     """ Get the `email` and `name` for email notifications. """
+    #     data = []
+    #     if assigned_id:
+    #         data.append({
+    #             "partner_ids": self.assigned_id.partner_id.ids,
+    #             'name': self.assigned_id.sudo().name
+    #         })
+    #     if department_id:
+    #         data.append({
+    #             "partner_ids": self.assigned_department_id.manager_id.user_partner_id.ids,
+    #             'name': _("Department %s") % self.assigned_department_id.sudo().name
+    #         })
+    #     return data
+    #
+    # def _get_template_id(self, tmpl_type: str) -> str:
+    #     if tmpl_type == 'state':
+    #         tmpl = 'st_calculation.calculation_message_user_assigned_status_change'
+    #     else:
+    #         tmpl = 'st_calculation.calculation_message_user_assigned'
+    #     return tmpl
