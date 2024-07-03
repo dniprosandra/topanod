@@ -112,6 +112,11 @@ msgid "Calculated"
 msgstr "Розраховано"
 
 #. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__calculated_qty
+msgid "Calculated Qty"
+msgstr "Розрахункова к-ть"
+
+#. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_sale_order__quotation_calculation_ids
 #: model:ir.model.fields,field_description:st_calculation.field_sale_order_line__calculation_id
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_crm_calculation_form_view
@@ -386,6 +391,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__length
 msgid "Length"
 msgstr "Д"
+
+#. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__loaded_qty
+msgid "Loaded Qty"
+msgstr "К-ть на завантаження"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__message_has_error
