@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* st_record_changes
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-01 15:44+0000\n"
+"PO-Revision-Date: 2024-07-01 15:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: st_record_changes
+#. odoo-python
+#: code:addons/st_record_changes/models/quotation_calculation_line.py:0
+#, python-format
+msgid "Additional service cost: %(old)s ➔ %(new)s"
+msgstr "Вартість додаткових послуг: %(old)s ➔ %(new)s"
+
+#. module: st_record_changes
+#. odoo-python
+#: code:addons/st_record_changes/models/quotation_calculation_line.py:0
+#, python-format
+msgid "Amount: %(old)s ➔ %(new)s"
+msgstr "Сума: %(old)s ➔ %(new)s"
+
+#. module: st_record_changes
+#. odoo-python
+#: code:addons/st_record_changes/models/quotation_calculation_line.py:0
+#, python-format
+msgid "Coating cost: %(old)s ➔ %(new)s"
+msgstr "Вартість покриття: %(old)s ➔ %(new)s"
+
+#. module: st_record_changes
+#. odoo-python
+#: code:addons/st_record_changes/models/quotation_calculation_line.py:0
+#, python-format
+msgid "Q-ty: %(old)s ➔ %(new)s"
+msgstr "К-ть: %(old)s ➔ %(new)s"
+
+#. module: st_record_changes
+#: model:ir.model,name:st_record_changes.model_quotation_calculation_line
+msgid "Quotation Calculation Line"
+msgstr ""
+
+#. module: st_record_changes
+#. odoo-python
+#: code:addons/st_record_changes/models/quotation_calculation_line.py:0
+#, python-format
+msgid "The calculated line has been updated."
+msgstr "Рядок розрахунку оновлено."
+
+#. module: st_record_changes
+#. odoo-python
+#: code:addons/st_record_changes/models/quotation_calculation_line.py:0
+#, python-format
+msgid "Total amount: %(old)s ➔ %(new)s"
+msgstr "Загальна сума: %(old)s ➔ %(new)s"
