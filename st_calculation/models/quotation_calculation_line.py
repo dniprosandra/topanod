@@ -31,9 +31,9 @@ class QuotationCalculationLine(models.Model):
         string="Product Code"
     )
     qty = fields.Integer(default=1)
-    length = fields.Float(required=True)
-    height = fields.Float(required=True)
-    width = fields.Float(required=True)
+    length = fields.Float()
+    height = fields.Float()
+    width = fields.Float()
     area = fields.Float(
         # compute="_compute_area", store=True
     )

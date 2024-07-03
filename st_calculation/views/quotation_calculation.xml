@@ -103,9 +103,9 @@
                                                groups="st_calculation.st_calculation_group_manager"/>
                                         <field name="shape"/>
                                         <field name="color" required="1"/>
-                                        <field name="length"/>
-                                        <field name="height"/>
-                                        <field name="width"/>
+                                        <field name="length" required="1"/>
+                                        <field name="height" required="1"/>
+                                        <field name="width" required="1"/>
                                         <field name="area"/>
                                         <field name="weight"/>
                                         <field name="amount" groups="st_calculation.st_calculation_group_manager"/>
