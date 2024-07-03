@@ -26,7 +26,7 @@ class QuotationCalculationLine(models.Model):
                 if 'product_id' in values and values['product_id'] != line.product_id.id:
                     # tracking is meaningless if the product is changed as well.
                     continue
-                msg += Markup("<li> %s: <br/>") % line.display_name
+                msg += Markup("<li><b> %s: </b><br/>") % line.display_name
                 if 'qty' in values:
                     msg += _(
                         "Q-ty: %(old)s ➔ %(new)s",
@@ -40,7 +40,7 @@ class QuotationCalculationLine(models.Model):
                         new=self.format_number(values["additional_service_cost"])
                     ) + Markup("<br/>")
                 if 'coating_cost' in values:
-                    msg = _(
+                    msg += _(
                         "Coating cost: %(old)s ➔ %(new)s",
                         old=self.format_number(line.coating_cost),
                         new=self.format_number(values["coating_cost"])
@@ -51,11 +51,12 @@ class QuotationCalculationLine(models.Model):
                         old=self.format_number(line.amount),
                         new=self.format_number(values["amount"])
                     ) + Markup("<br/>")
-                msg += _(
-                    "Total amount: %(old)s ➔ %(new)s",
-                    old=self.format_number(line.total_amount),
-                    new=line._get_new_total(values)
-                ) + Markup("<br/>")
+                if 'qty' or 'amount' in values:
+                    msg += _(
+                        "Total amount: %(old)s ➔ %(new)s",
+                        old=self.format_number(line.total_amount),
+                        new=line._get_new_total(values)
+                    ) + Markup("<br/>")
 
             msg += Markup("</ul>")
             calc.message_post(body=msg)
