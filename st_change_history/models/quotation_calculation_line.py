@@ -11,15 +11,17 @@ class QuotationCalculationLine(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         result = super(QuotationCalculationLine, self).create(vals_list)
-        for vals in vals_list:
-            if 'comment' in vals:
-                result._add_history_record(vals['comment'])
+        for rec in result:
+            if rec.comment and rec.product_id:
+                rec._add_history_record(rec.comment)
         return result
 
     def write(self, vals):
         result = super().write(vals)
         if result and 'comment' in vals:
-            self._add_history_record(vals['comment'])
+            for rec in self:
+                if rec.product_id:
+                    rec._add_history_record(vals['comment'])
         return result
 
     def _add_history_record(self, comment: str):
