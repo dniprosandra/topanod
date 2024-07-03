@@ -19,7 +19,7 @@ class ProductTemplate(models.Model):
             for rec in self:
                 partner_id = vals.get('partner_id')
                 if partner_id:
-                    if partner_id != rec.partner_id:
+                    if partner_id != rec.partner_id.id:
                         vals['unique_code'] = rec._get_unique_code(partner_id)
                 else:
                     vals['unique_code'] = ""
