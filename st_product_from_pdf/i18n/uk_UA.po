@@ -1,0 +1,155 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* st_product_from_pdf
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-01 08:27+0000\n"
+"PO-Revision-Date: 2024-07-01 08:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: st_product_from_pdf
+#. odoo-python
+#: code:addons/st_product_from_pdf/wizard/import_product_wizard.py:0
+#, python-format
+msgid ""
+"\n"
+" Product(s) already exist: \n"
+msgstr ""
+"\n"
+" Продукти вже існують: \n"
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_product_product__attached_file
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_product_template__attached_file
+msgid "Attached file"
+msgstr "Прикріплення"
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__attachment_ids
+msgid "Attachments"
+msgstr "Оберіть файл(ли)"
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__calculation_id
+msgid "Calculation"
+msgstr "Розрахунок"
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_import_product_wizard_form_view
+msgid "Choose PDF To Import"
+msgstr "Виберіть PDF для імпорту"
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_import_product_wizard_form_view
+msgid "Choose file(s)"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_import_product_wizard_form_view
+msgid "Discard"
+msgstr "Скасувати"
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_import_product_wizard_form_view
+msgid "Import"
+msgstr "Імпорт"
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_product_from_pdf_form_view_inherit
+msgid "Import Product"
+msgstr "Імпортувати"
+
+#. module: st_product_from_pdf
+#: model:ir.model,name:st_product_from_pdf.model_st_import_product_wizard
+msgid "Import Product Wizard"
+msgstr ""
+
+#. module: st_product_from_pdf
+#. odoo-python
+#: code:addons/st_product_from_pdf/wizard/import_product_wizard.py:0
+#, python-format
+msgid "Imported %s product from %s . \n"
+msgstr "Імпортовано %s товар з %s . \n"
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_st_import_product_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_product_from_pdf_form_view_inherit
+msgid "Open file in a new tab"
+msgstr "Відкрити файл у новій вкладці"
+
+#. module: st_product_from_pdf
+#: model_terms:ir.ui.view,arch_db:st_product_from_pdf.st_product_from_pdf_form_view_inherit
+msgid "Open wizard for importing product from PDF"
+msgstr "Відкрити для імпорту продукту з PDF"
+
+#. module: st_product_from_pdf
+#: model:ir.model,name:st_product_from_pdf.model_product_template
+msgid "Product"
+msgstr "Товар"
+
+#. module: st_product_from_pdf
+#. odoo-python
+#: code:addons/st_product_from_pdf/wizard/import_product_wizard.py:0
+#, python-format
+msgid "Product Import"
+msgstr "Імпорт продукту"
+
+#. module: st_product_from_pdf
+#: model:ir.model,name:st_product_from_pdf.model_quotation_calculation
+msgid "Quotation Calculation"
+msgstr "Розрахунок"
+
+#. module: st_product_from_pdf
+#: model:ir.model,name:st_product_from_pdf.model_quotation_calculation_line
+msgid "Quotation Calculation Line"
+msgstr ""
+
+#. module: st_product_from_pdf
+#: model:ir.model.fields,field_description:st_product_from_pdf.field_quotation_calculation_line__file_url
+msgid "URL"
+msgstr ""
+
+#. module: st_product_from_pdf
+#. odoo-python
+#: code:addons/st_product_from_pdf/models/product_template.py:0
+#: model:ir.model.constraint,message:st_product_from_pdf.constraint_product_template_name_uniq
+#, python-format
+msgid "Unique product template name"
+msgstr "Унікальна назва продукту"

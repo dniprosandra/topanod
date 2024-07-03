@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="st_history_calculation_form_inherit" model="ir.ui.view">
+            <field name="name">st.history.calculation.form.inherit</field>
+            <field name="model">quotation.calculation</field>
+            <field name="inherit_id" ref="st_calculation.st_quotation_calculation_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='calculation_line_ids']/tree/field[@name='color']" position="after">
+                    <field name="comment"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Views-->
+        <!--Form-->
+        <record id="st_product_from_pdf_form_view_inherit" model="ir.ui.view">
+            <field name="name">st.product.from.pdf.form.view.inherit</field>
+            <field name="model">quotation.calculation</field>
+            <field name="inherit_id" ref="st_calculation.st_quotation_calculation_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='button_calculation_sent']" position="before">
+                    <button name="button_open_file_import_wizard"
+                            string="Import Product"
+                            title="Open wizard for importing product from PDF"
+                            type="object"
+                            class="btn btn-outline-primary"
+                            invisible="state in 'confirmed'"/>
+                </xpath>
+                <xpath expr="//field[@name='calculation_line_ids']/tree/field[@name='product_id']" position="before">
+                    <field name="file_url" column_invisible="1"/>
+                    <button name="open_doc"
+                            title="Open file in a new tab"
+                            type="object"
+                            icon="fa-external-link"
+                            invisible="not file_url"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
