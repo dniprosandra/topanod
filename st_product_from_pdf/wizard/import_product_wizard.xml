@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="st_import_product_wizard_form_view" model="ir.ui.view">
+            <field name="name">st.import.product.wizard.form.view</field>
+            <field name="model">st.import.product.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Choose PDF To Import">
+                    <sheet>
+                        <group>
+                            <group>
+                                <div colspan="2">
+                                    <field name="attachment_ids" widget="many2many_binary" string="Choose file(s)"
+                                           nolabel="1"/>
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Import" type="object" name="import_product" class="btn btn-primary"/>
+                        <button string="Discard" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>
