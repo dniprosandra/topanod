@@ -2,7 +2,7 @@
 
 {
     'name': 'Change History',
-    'version': '17.0.0.0.0',
+    'version': '17.0.0.0.1',
     'summary': 'Calculation Change History',
     'sequence': 10,
     'description': """
