@@ -30,7 +30,7 @@ class QuotationCalculationLine(models.Model):
         self.ensure_one()
         calc_ref = self._get_html_link()
         customer_ref = self.partner_id._get_html_link()
-        self.activity_schedule(
+        self.with_context(mail_activity_quick_update=True).activity_schedule(
             'st_calculation_activity.st_calculation_notification_activity',
             user_id=user_id,
             note=_("Calculation %(calc)s for customer %(customer)s", calc=calc_ref, customer=customer_ref)
