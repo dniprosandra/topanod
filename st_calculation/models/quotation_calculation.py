@@ -154,7 +154,7 @@ class QuotationCalculation(models.Model):
 
     def button_reset_to_new(self):
         """ Move Calculation state to 'New' """
-        self.write({
+        self.with_context(mail_auto_subscribe_no_notify=True).write({
             'state': 'new',
             'calculation_date': False,
             'in_production_date': False
@@ -175,7 +175,7 @@ class QuotationCalculation(models.Model):
             raise ValidationError(
                 _("You can not move status to 'In Production' without calculation lines.")
             )
-        self.write({
+        self.with_context(mail_auto_subscribe_no_notify=True).write({
             'state': 'in_production',
             'in_production_date': date.today()
         })
@@ -194,7 +194,7 @@ class QuotationCalculation(models.Model):
             raise ValidationError(
                 _("You can not move status to 'In Production' without assigned department.")
             )
-        self.write({
+        self.with_context(mail_auto_subscribe_no_notify=True).write({
             'state': 'calculated',
             'calculation_date': date.today()
         })
@@ -208,7 +208,7 @@ class QuotationCalculation(models.Model):
         for rec in self:
             rec._no_product_in_line_create()
             rec._add_line_to_quotation()
-            rec.write({'state': 'confirmed'})
+            rec.with_context(mail_auto_subscribe_no_notify=True).write({'state': 'confirmed'})
 
     def _is_line_ids(self) -> bool:
         if self.calculation_line_ids:
