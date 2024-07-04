@@ -2,7 +2,7 @@
 
 {
     'name': 'Calculation Activity',
-    'version': '17.0.0.0.0',
+    'version': '17.0.0.0.1',
     'summary': 'Calculation Activity',
     'sequence': 10,
     'description': """
