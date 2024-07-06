@@ -2,7 +2,7 @@
 
 {
     'name': 'Unique Code',
-    'version': '17.0.0.0.0',
+    'version': '17.0.0.1.0',
     'summary': 'Generate unique code',
     'sequence': 10,
     'description': """
