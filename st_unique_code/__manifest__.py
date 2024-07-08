@@ -21,6 +21,11 @@ Generate unique code for partner and for product
         'views/res_partner_views.xml',
         'views/product_template_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'st_unique_code/static/src/js/on_record_saved.js',
+        ],
+    },
     'demo': [],
     'installable': True,
     'application': True,
