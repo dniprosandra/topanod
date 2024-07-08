@@ -14,32 +14,28 @@ class ResPartner(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            # company_type = vals.get('company_type', "")
             vals['partner_ext_id'] = self._get_partner_code()
-            # if company_type == 'person':
-            vals['product_seq_id'] = self._get_partner_seq(vals)
-        return super(ResPartner, self).create(vals_list)
+        result = super(ResPartner, self).create(vals_list)
+        for rec in result:
+            rec.product_seq_id = rec._create_partner_seq()
+        return result
 
     def _get_partner_code(self) -> str:
         code = self.env['ir.sequence'].next_by_code('partner.unique.code')
         return code.lstrip("0")
 
-    def _get_partner_seq(self, vals: dict) -> int:
+    def _create_partner_seq(self) -> int:
         seq_model = self.env['ir.sequence']
-        ext_id = vals['partner_ext_id']
         seq_vals = {
-            'name': f"Product Sequence {ext_id} - {vals['name']}",
-            'code': self._get_seq_code(vals),
+            'name': f"Product Sequence ext_id_{self.partner_ext_id}",
+            'code': self._get_seq_code(),
             'padding': 5,
             'number_increment': 1
         }
-        seq = seq_model.create(seq_vals)
+        seq = seq_model.sudo().create(seq_vals)
         return seq.id
 
-    @staticmethod
-    def _get_seq_code(vals: dict) -> str:
-        ext_id = vals['partner_ext_id']
-        name = vals['name'].replace(' ', '_').lower()
-        code = f"{ext_id}_{name}"
+    def _get_seq_code(self) -> str:
+        ext_id = self.partner_ext_id
+        code = f"tpn_ext_id{ext_id}_id{self.id}"
         return code
-
