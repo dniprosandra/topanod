@@ -2,7 +2,7 @@
 
 {
     'name': 'Unique Code',
-    'version': '17.0.0.0.0',
+    'version': '17.0.0.1.0',
     'summary': 'Generate unique code',
     'sequence': 10,
     'description': """
@@ -21,6 +21,11 @@ Generate unique code for partner and for product
         'views/res_partner_views.xml',
         'views/product_template_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'st_unique_code/static/src/js/on_record_saved.js',
+        ],
+    },
     'demo': [],
     'installable': True,
     'application': True,
