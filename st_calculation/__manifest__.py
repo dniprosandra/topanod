@@ -37,6 +37,12 @@
 
         'views/st_calculation_menus.xml'
     ],
+    'assets': {
+        'web.assets_backend': [
+            'st_calculation/static/src/xml/list_render.xml',
+            'st_calculation/static/src/js/list_renderer.js',
+        ],
+    },
     'demo': [],
     'installable': True,
     'application': True,
