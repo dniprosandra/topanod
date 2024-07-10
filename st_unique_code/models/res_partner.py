@@ -37,5 +37,8 @@ class ResPartner(models.Model):
 
     def _get_seq_code(self) -> str:
         ext_id = self.partner_ext_id
-        code = f"tpn_ext_id{ext_id}_id{self.id}"
+        if not ext_id:
+            self.partner_ext_id = self._get_partner_code()
+            ext_id = self.partner_ext_id
+        code = f"partner.{ext_id}.product.code.seq"
         return code

@@ -32,12 +32,11 @@ class ProductTemplate(models.Model):
         partner = self.env['res.partner'].browse(partner_id)
         partner_ext_id = partner.partner_ext_id
         partner_product_seq_code = partner.product_seq_id.code
+        if not partner_product_seq_code:
+            partner.product_seq_id = partner._create_partner_seq()
+            partner_product_seq_code = partner.product_seq_id.code
         next_product_code = partner.product_seq_id.next_by_code(partner_product_seq_code).lstrip("0")
-        if partner_ext_id:
-            code = f"{partner_ext_id}-{next_product_code}"
-        else:
-            code = ""
-        return code
+        return f"{partner_ext_id}-{next_product_code}"
 
     def _get_upn_next_num(self) -> str:
         """ Create unique product number """
