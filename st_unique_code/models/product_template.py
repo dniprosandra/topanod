@@ -31,13 +31,13 @@ class ProductTemplate(models.Model):
         """ Create unique code for product based on partner_ext_id """
         partner = self.env['res.partner'].browse(partner_id)
         partner_ext_id = partner.partner_ext_id
+        if not partner.product_seq_id:
+            partner.product_seq_id = partner._create_partner_seq()
+        if not partner.product_seq_id.code:
+            partner.product_seq_id.code = partner._get_seq_code()
         partner_product_seq_code = partner.product_seq_id.code
         next_product_code = partner.product_seq_id.next_by_code(partner_product_seq_code).lstrip("0")
-        if partner_ext_id:
-            code = f"{partner_ext_id}-{next_product_code}"
-        else:
-            code = ""
-        return code
+        return f"{partner_ext_id}-{next_product_code}"
 
     def _get_upn_next_num(self) -> str:
         """ Create unique product number """
