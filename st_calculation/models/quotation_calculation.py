@@ -221,13 +221,10 @@ class QuotationCalculation(models.Model):
         """
         for line in self.calculation_line_ids:
             if not line.product_id:
-                product_tmpl_id = self.env['product.template'].create({
+                product_id = self.env['product.product'].create({
                     'name': line.name,
                     "partner_id": line.partner_id.id,
                 })
-                product_id = self.env['product.product'].search([
-                    ('product_tmpl_id', '=', product_tmpl_id.id)
-                ], limit=1)
                 line.product_id = product_id.id
                 _logger.info(_("Created product '%s' for calculation '%s'.") % (product_id.name, self.name))
 
