@@ -8,6 +8,14 @@ from odoo.exceptions import ValidationError
 _logger = logging.getLogger(__name__)
 
 
+AVAILABLE_PRIORITIES = [
+    ('0', 'Low'),
+    ('1', 'Medium'),
+    ('2', 'High'),
+    ('3', 'Very High'),
+]
+
+
 class QuotationCalculation(models.Model):
     _name = 'quotation.calculation'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -60,15 +68,32 @@ class QuotationCalculation(models.Model):
         default='draft',
         tracking=True
     )
+    priority = fields.Selection(
+        AVAILABLE_PRIORITIES, string='Priority', index=True,
+        default=AVAILABLE_PRIORITIES[0][0]
+    )
     partner_ext_id = fields.Char(related="partner_id.partner_ext_id")
     rq_number = fields.Char(string="RQ")
     note = fields.Text()
 
     # Integer/Float/Monetary fields
-    total_product_amount = fields.Monetary(
-        compute="_compute_total_amount", currency_field="currency_id"
+    state_order_num = fields.Selection(selection=[
+            ('0', 'Draft'),
+            ('1', 'New'),
+            ('2', 'In Production'),
+            ('3', 'Calculated'),
+            ('4', 'Calculation sent'),
+            ('5', 'Confirmed'),
+        ],
+        store=True, copy=False,
+        default='0', readonly=True,
+        compute="_compute_state_order_num",
+        help="Field for ordering state in kanban view"
     )
-    total_amount = fields.Monetary(compute="_compute_total_amount", currency_field="currency_id")
+    total_product_amount = fields.Monetary(
+        compute_sudo="_compute_total_amount", currency_field="currency_id"
+    )
+    total_amount = fields.Monetary(compute_sudo="_compute_total_amount", currency_field="currency_id", store=True)
     delivery_cost = fields.Monetary(currency_field="currency_id")
 
     #  Date fields
@@ -116,6 +141,19 @@ class QuotationCalculation(models.Model):
         for rec in self:
             rec.total_product_amount = sum([line.total_amount for line in rec.calculation_line_ids])
             rec.total_amount = rec.total_product_amount + rec.delivery_cost
+
+    @api.depends('state')
+    def _compute_state_order_num(self):
+        state_order_mapping = {
+            'draft': '0',
+            'new': '1',
+            'in_production': '2',
+            'calculated': '3',
+            'sent': '4',
+            'confirmed': '5',
+        }
+        for rec in self:
+            rec.state_order_num = state_order_mapping[rec.state]
 
     @api.returns('mail.message', lambda value: value.id)
     def message_post(self, **kwargs):

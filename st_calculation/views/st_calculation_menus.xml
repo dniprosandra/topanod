@@ -26,9 +26,15 @@
                       action="additional_service_act_window"/>
 
         <menuitem name="Calculations"
-                  id="st_calculation_calculation_item"
+                  id="st_calculation_sale_calculation_item"
                   sequence="25"
                   parent="sale.sale_order_menu"
+                  action="st_quotation_calculation_act_window"/>
+
+        <menuitem name="Calculations"
+                  id="st_calculation_crm_calculation_item"
+                  sequence="6"
+                  parent="crm.crm_menu_root"
                   action="st_quotation_calculation_act_window"/>
 
     </data>

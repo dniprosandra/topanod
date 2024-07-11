@@ -11,7 +11,7 @@
     'category': 'Sales/CRM',
     'website': 'https://smarttek.solutions/',
     'depends': [
-        # 'crm',
+        'crm',
         'hr',
         'contacts',
         'sale_management',
