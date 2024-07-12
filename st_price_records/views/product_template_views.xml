@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="st_history_customer_form_inherit" model="ir.ui.view">
+            <field name="name">st.history.customer.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Prices in Calculation" name="comment_change">
+                        <field name="price_rec_ids" mode="tree" readonly="1">
+                            <tree name="comment_history" no_open="1" limit="10">
+                                <field name="active" column_invisible="1"/>
+                                <field name="calculation_id" string="Calculation" widget="many2one"/>
+                                <field name="user_id"/>
+                                <field name="price_change_date" string="Date"/>
+                                <field name="price" widget="monetary"/>
+                                <field name="qty"/>
+                                <field name="loaded_qty"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
