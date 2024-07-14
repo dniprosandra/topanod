@@ -86,7 +86,7 @@
                                 <group>
                                     <group>
                                         <field name="delivery_cost" colspan="2"
-                                               groups="st_calculation.st_calculation_group_manager"/>
+                                               groups="st_calculation.calculation_manager_user"/>
                                     </group>
                                 </group>
                                 <field name="calculation_line_ids"
@@ -103,10 +103,10 @@
                                         <field name="loaded_qty"/>
                                         <field name="coating_type" required="1"/>
                                         <field name="coating_cost"
-                                               groups="st_calculation.st_calculation_group_manager"/>
+                                               groups="st_calculation.calculation_manager_user"/>
                                         <field name="additional_service_ids" required="1" widget="many2many_tags"/>
                                         <field name="additional_service_cost"
-                                               groups="st_calculation.st_calculation_group_manager"/>
+                                               groups="st_calculation.calculation_manager_user"/>
                                         <field name="shape"/>
                                         <field name="color" required="1"/>
                                         <field name="length" required="1"/>
@@ -114,9 +114,10 @@
                                         <field name="width" required="1"/>
                                         <field name="area"/>
                                         <field name="weight"/>
-                                        <field name="amount" groups="st_calculation.st_calculation_group_manager"/>
+                                        <field name="amount"
+                                               groups="st_calculation.calculation_manager_user"/>
                                         <field name="total_amount"
-                                               groups="st_calculation.st_calculation_group_manager"/>
+                                               groups="st_calculation.calculation_manager_user"/>
                                     </tree>
                                 </field>
                                 <group name="note_group" col="6" class="mt-2 mt-md-0">
@@ -125,7 +126,7 @@
                                                placeholder="Terms and conditions..."/>
                                     </group>
                                     <group class="oe_subtotal_footer" colspan="2" name="expense_total"
-                                           groups="st_calculation.st_calculation_group_manager">
+                                           groups="st_calculation.calculation_manager_user">
                                         <field colspan="2" name="total_product_amount" readonly="1"/>
                                         <div class="oe_inline o_td_label">
                                             <label for="delivery_cost"/>
@@ -161,7 +162,9 @@
                     <field name="assigned_id" optional="show"/>
                     <field name="assigned_department_id" optional="show"/>
                     <field name="state" optional="show"/>
-                    <field name="total_amount" groups="st_calculation.st_calculation_group_manager" optional="show"/>
+                    <field name="total_amount"
+                           groups="st_calculation.calculation_manager_user"
+                           optional="show"/>
                 </tree>
             </field>
         </record>
@@ -191,6 +194,7 @@
                     <progressbar field="state"
                                  colors='{"new": "secondary", "in_production": "info", "calculated": "primary", "sent": "warning", "confirmed": "success"}'
                                  sum_field="total_amount"
+                                 groups="st_calculation.calculation_manager_user"
                                  help="This bar allows to filter the calculation based on Status."/>
                     <templates>
                         <t t-name="kanban-menu">
@@ -204,17 +208,20 @@
                             <div t-attf-class="oe_kanban_global_click oe_kanban_card d-flex flex-column">
                                 <div class="ribbon ribbon-top-right"
                                      invisible="state != 'confirmed'">
-                                    <span class="text-bg-success">Won</span>
+                                    <span class="text-bg-success" style="z-index: auto">Won</span>
                                 </div>
                                 <div class="oe_kanban_content flex-grow-1">
                                     <div class="oe_kanban_details">
-                                        <strong class="o_kanban_record_title"><span t-if="record.partner_id.value"
-                                                                                    t-esc="record.partner_id.value"></span></strong>
+                                        <strong class="o_kanban_record_title">
+                                            <span t-if="record.partner_id.value" t-esc="record.partner_id.value"></span>
+                                        </strong>
                                     </div>
                                     <div class="o_kanban_record_subtitle">
                                         <t t-if="record.total_amount.value">
                                             <field class="me-1" name="total_amount" widget="monetary"
-                                                   options="{'currency_field': 'currency_id'}"/>
+                                                   options="{'currency_field': 'currency_id'}"
+                                                   groups="st_calculation.calculation_manager_user"/>
+
                                         </t>
                                     </div>
                                     <div>
@@ -251,7 +258,7 @@
                     <field name="partner_ext_id" string="Partner Ext. id"/>
                     <field name="calculation_line_ids" string="Product"/>
                     <field name="name" string="Name"/>
-
+                    <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
                     <filter string="Sent" name="sent" domain="[('state', '=', 'sent')]"/>
                     <filter string="In Production" name="in_production" domain="[('state', '=', 'in_production')]"/>
                     <group expand="1" string="Group By">
@@ -261,6 +268,7 @@
                         <filter name="group_by_assignee" string="Assigned User" context="{'group_by': 'assigned_id'}"/>
                         <filter name="group_by_assignee_department" string="Assigned Department"
                                 context="{'group_by': 'assigned_department_id'}"/>
+                        <filter name="group_by_priority" string="Priority" context="{'group_by': 'priority'}"/>
                     </group>
                 </search>
             </field>

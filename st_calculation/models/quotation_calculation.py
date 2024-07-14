@@ -75,21 +75,22 @@ class QuotationCalculation(models.Model):
     partner_ext_id = fields.Char(related="partner_id.partner_ext_id")
     rq_number = fields.Char(string="RQ")
     note = fields.Text()
-
-    # Integer/Float/Monetary fields
     state_order_num = fields.Selection(selection=[
-            ('0', 'Draft'),
-            ('1', 'New'),
-            ('2', 'In Production'),
-            ('3', 'Calculated'),
-            ('4', 'Calculation sent'),
-            ('5', 'Confirmed'),
-        ],
+        ('0', 'Draft'),
+        ('1', 'New'),
+        ('2', 'In Production'),
+        ('3', 'Calculated'),
+        ('4', 'Calculation sent'),
+        ('5', 'Confirmed'),
+    ],
         store=True, copy=False,
         default='0', readonly=True,
         compute="_compute_state_order_num",
         help="Field for ordering state in kanban view"
     )
+
+    # Integer/Float/Monetary fields
+    color = fields.Integer('Color Index', default=0)
     total_product_amount = fields.Monetary(
         compute_sudo="_compute_total_amount", currency_field="currency_id"
     )

@@ -2,7 +2,7 @@
 
 {
     'name': 'Calculation',
-    'version': '17.0.0.0.0',
+    'version': '17.0.0.1.0',
     'summary': 'Calculation',
     'sequence': 10,
     'description': """
@@ -37,12 +37,12 @@
 
         'views/st_calculation_menus.xml'
     ],
-    'assets': {
-        'web.assets_backend': [
-            'st_calculation/static/src/xml/list_render.xml',
-            'st_calculation/static/src/js/list_renderer.js',
-        ],
-    },
+    # 'assets': {
+    #     'web.assets_backend': [
+    #         'st_calculation/static/src/xml/list_render.xml',
+    #         'st_calculation/static/src/js/list_renderer.js',
+    #     ],
+    # },
     'demo': [],
     'installable': True,
     'application': True,
