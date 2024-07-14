@@ -1,10 +1,8 @@
-version: 17.0.0.1.0
-====
-1. New. Add roles
 
-2. New. Add kanban view
+`17.0.0.1.0`
+------
+- **New:** Add roles
+- **New:** Add kanban view
+- **New:** Color picker for kanban view
 
-3. New. Color picker for kanban view
-
-
-'version': '17.0.0.1.0'
+ **17.0.0.0.0**
