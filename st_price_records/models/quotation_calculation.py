@@ -17,10 +17,14 @@ class QuotationCalculation(models.Model):
             return history.write({"active": is_active})
 
     def unlink(self):
+        history_rec = []
         for rec in self:
             history = rec._get_line_price_history()
-            history.unlink()
-        return super().unlink()
+            history_rec.append(history)
+        res = super().unlink()
+        for rec in history_rec:
+            rec.unlink()
+        return res
 
     def _get_line_price_history(self, is_active=None):
         domain = [("calculation_id", "=", self.id)]

@@ -23,11 +23,15 @@ class QuotationCalculationLine(models.Model):
         return result
 
     def unlink(self):
+        history_rec = []
         for rec in self:
             history = rec._get_line_price_history()
             if history:
-                history.unlink()
-        return super().unlink()
+                history_rec.append(history)
+        res = super().unlink()
+        for rec in history_rec:
+            rec.unlink()
+        return res
 
     def _get_line_price_history(self):
         domain = [("line_id", "=", self.id)]
