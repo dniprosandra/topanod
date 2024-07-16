@@ -1,0 +1,138 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* st_price_records
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-12 14:12+0000\n"
+"PO-Revision-Date: 2024-07-12 14:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__active
+msgid "Active"
+msgstr ""
+
+#. module: st_price_records
+#: model_terms:ir.ui.view,arch_db:st_price_records.st_history_customer_form_inherit
+msgid "Calculation"
+msgstr "Розрахунок"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__line_id
+msgid "Calculation Line"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_product_product__price_rec_ids
+#: model:ir.model.fields,field_description:st_price_records.field_product_template__price_rec_ids
+msgid "Price History"
+msgstr "Історія цін"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: st_price_records
+#: model_terms:ir.ui.view,arch_db:st_price_records.st_history_customer_form_inherit
+msgid "Date"
+msgstr "Дата"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__id
+msgid "ID"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model,name:st_price_records.model_calculation_price_history
+msgid "Line History"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__loaded_qty
+msgid "Loaded Qty"
+msgstr "К-ть на завантаження"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__user_id
+msgid "Manager"
+msgstr "Менеджер"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__price
+msgid "Price"
+msgstr "Ціна"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__price_change_date
+msgid "Price Change Date"
+msgstr "Дата зміни ціни"
+
+#. module: st_price_records
+#: model_terms:ir.ui.view,arch_db:st_price_records.st_history_customer_form_inherit
+msgid "Prices in Calculation"
+msgstr "Ціни в прорахунку"
+
+#. module: st_price_records
+#: model:ir.model,name:st_price_records.model_product_template
+msgid "Product"
+msgstr "Товар"
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__product_tmpl_id
+msgid "Product Tmpl"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__qty
+msgid "Qty"
+msgstr "К-ть"
+
+#. module: st_price_records
+#: model:ir.model,name:st_price_records.model_quotation_calculation
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__calculation_id
+msgid "Quotation Calculation"
+msgstr "Розрахунок"
+
+#. module: st_price_records
+#: model:ir.model,name:st_price_records.model_quotation_calculation_line
+msgid "Quotation Calculation Line"
+msgstr ""
+
+#. module: st_price_records
+#: model:ir.model.fields,field_description:st_price_records.field_calculation_price_history__state
+msgid "Status"
+msgstr "Статус розрахунку "
