@@ -8,24 +8,24 @@
         </record>
 
         <record id="calculation_inventory_user" model="res.groups">
-            <field name="name">Calculation Inventory</field>
+            <field name="name">Inventory</field>
             <field name="category_id" ref="st_calculation.st_calculation_group"/>
         </record>
 
         <record id="calculation_production_user" model="res.groups">
-            <field name="name">Calculation Production</field>
+            <field name="name">Production</field>
             <field name="implied_ids" eval="[(4, ref('st_calculation.calculation_inventory_user'))]"/>
             <field name="category_id" ref="st_calculation.st_calculation_group"/>
         </record>
 
         <record id="calculation_manager_user" model="res.groups">
-            <field name="name">Calculation Manager</field>
+            <field name="name">Manager</field>
             <field name="implied_ids" eval="[(4, ref('st_calculation.calculation_production_user'))]"/>
             <field name="category_id" ref="st_calculation.st_calculation_group"/>
         </record>
 
         <record id="calculation_director_user" model="res.groups">
-            <field name="name">Calculation Director</field>
+            <field name="name">Director</field>
             <field name="implied_ids" eval="[(4, ref('st_calculation.calculation_manager_user'))]"/>
             <field name="category_id" ref="st_calculation.st_calculation_group"/>
         </record>
