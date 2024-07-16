@@ -8,7 +8,8 @@
             <field name="inherit_id" ref="product.product_template_form_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//notebook" position="inside">
-                    <page string="Prices in Calculation" name="comment_change">
+                    <page string="Prices in Calculation" name="comment_change"
+                          groups="st_calculation.calculation_manager_user">
                         <field name="price_rec_ids" mode="tree" readonly="1">
                             <tree name="comment_history" no_open="1" limit="10">
                                 <field name="active" column_invisible="1"/>
