@@ -35,16 +35,9 @@
         <!--CRM MENUS-->
         <menuitem name="Calculations"
                   id="st_calculation_crm_calculation_item"
-                  sequence="6"
-                  parent="crm.crm_menu_leads"
+                  sequence="3"
+                  parent="crm.crm_menu_root"
                   action="st_quotation_calculation_act_window"/>
-
-        <menuitem id="st_crm_menu_leads"
-                  name="Leads"
-                  parent="crm.crm_menu_leads"
-                  action="crm.crm_lead_all_leads"
-                  groups="crm.group_use_lead"
-                  sequence="5"/>
 
     </data>
 </odoo>

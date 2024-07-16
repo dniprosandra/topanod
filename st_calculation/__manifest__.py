@@ -34,6 +34,7 @@
         'views/additional_service_views.xml',
         'views/coating_type_views.xml',
         'views/service_color_views.xml',
+        'views/crm_lead.xml',
 
         'views/st_calculation_menus.xml'
     ],

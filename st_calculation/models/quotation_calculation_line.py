@@ -51,7 +51,6 @@ class QuotationCalculationLine(models.Model):
         currency_field="currency_id"
     )
 
-    tmp_field = fields.Integer()
 
     @api.depends('product_id')
     def _compute_product_tmpl(self):
