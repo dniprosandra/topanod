@@ -7,9 +7,11 @@
             <field name="model">crm.lead</field>
             <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
             <field name="arch" type="xml">
+
                 <xpath expr="//div[hasclass('oe_kanban_details')]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+
                 <xpath expr="//span[hasclass('o_text_overflow')]" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
@@ -21,9 +23,11 @@
                         </strong>
                     </div>
                 </xpath>
+
                 <xpath expr="//span[hasclass('o_text_overflow')]" position="after">
                     <span class="o_text_overflow"><field name="name"/></span>
                 </xpath>
+
             </field>
         </record>
     </data>
