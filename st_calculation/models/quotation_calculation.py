@@ -92,7 +92,7 @@ class QuotationCalculation(models.Model):
     # Integer/Float/Monetary fields
     color = fields.Integer('Color Index', default=0)
     total_product_amount = fields.Monetary(
-        compute_sudo="_compute_total_amount", currency_field="currency_id"
+        compute="_compute_total_amount", currency_field="currency_id"
     )
     total_amount = fields.Monetary(compute_sudo="_compute_total_amount", currency_field="currency_id", store=True)
     delivery_cost = fields.Monetary(currency_field="currency_id")

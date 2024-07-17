@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-22 19:43+0000\n"
-"PO-Revision-Date: 2024-06-22 19:43+0000\n"
+"POT-Creation-Date: 2024-07-16 19:04+0000\n"
+"PO-Revision-Date: 2024-07-16 19:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,30 @@ msgstr ""
 #, python-format
 msgid "%s, Calculation(s) - %s"
 msgstr "%s, Розрахунок(ки) - %s"
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned_status_change
+msgid ""
+",\n"
+"                <br/><br/>"
+msgstr ""
+
+#. module: st_calculation
+#: model:mail.template,body_html:st_calculation.email_notification_template
+msgid ""
+"<div>\n"
+"                    Dear <t t-esc=\"assignee_name\"></t>,\n"
+"                    <br><br>\n"
+"                    <span style=\"margin-top: 8px;\">You have been assigned to the <t t-esc=\"model_description or 'document'\"></t> <t t-esc=\"name\"></t>.</span>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_calculation_kanban_view
+msgid "<span class=\"text-bg-success\" style=\"z-index: auto\">Won</span>"
+msgstr ""
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__message_needaction
@@ -76,6 +100,11 @@ msgid "Amount"
 msgstr "Сума"
 
 #. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
+msgid "Archived"
+msgstr "Заархівовані"
+
+#. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__area
 msgid "Area"
 msgstr "Площа"
@@ -108,6 +137,7 @@ msgstr "Розрахувати"
 
 #. module: st_calculation
 #: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state__calculated
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state_order_num__3
 msgid "Calculated"
 msgstr "Розраховано"
 
@@ -119,6 +149,8 @@ msgstr "Розрахункова к-ть"
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_sale_order__quotation_calculation_ids
 #: model:ir.model.fields,field_description:st_calculation.field_sale_order_line__calculation_id
+#: model:ir.module.category,name:st_calculation.st_calculation_group
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned_status_change
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_crm_calculation_form_view
 msgid "Calculation"
 msgstr "Розрахунки"
@@ -146,11 +178,13 @@ msgstr "Рядки прорахунку"
 
 #. module: st_calculation
 #: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state__sent
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state_order_num__4
 msgid "Calculation sent"
 msgstr "Надіслано"
 
 #. module: st_calculation
-#: model:ir.ui.menu,name:st_calculation.st_calculation_calculation_item
+#: model:ir.ui.menu,name:st_calculation.st_calculation_crm_calculation_item
+#: model:ir.ui.menu,name:st_calculation.st_calculation_sale_calculation_item
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_crm_calculation_form_view
 msgid "Calculations"
 msgstr "Розрахунки"
@@ -201,6 +235,16 @@ msgid "Color"
 msgstr "Колір"
 
 #. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__color
+msgid "Color Index"
+msgstr "Індекс кольору"
+
+#. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__company_id
+msgid "Company"
+msgstr ""
+
+#. module: st_calculation
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_form_view
 msgid "Confirm"
 msgstr "Підтвердити"
@@ -212,13 +256,9 @@ msgstr "Підтвердіть розрахунок і перейдіть до �
 
 #. module: st_calculation
 #: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state__confirmed
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state_order_num__5
 msgid "Confirmed"
 msgstr "Підтверджено"
-
-#. module: st_calculation
-#: model:ir.model,name:st_calculation.model_res_partner
-msgid "Contact"
-msgstr "Контакт"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_additional_service__cost
@@ -249,14 +289,19 @@ msgid "Created on"
 msgstr ""
 
 #. module: st_calculation
+#. odoo-python
+#: code:addons/st_calculation/models/quotation_calculation.py:0
+#, python-format
+msgid "Created product '%s' for calculation '%s'."
+msgstr ""
+
+#. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__currency_id
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__currency_id
 msgid "Currency"
 msgstr "Валюта"
 
 #. module: st_calculation
-#: model:ir.model.fields,field_description:st_calculation.field_product_product__partner_id
-#: model:ir.model.fields,field_description:st_calculation.field_product_template__partner_id
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__partner_id
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__partner_id
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
@@ -264,14 +309,25 @@ msgid "Customer"
 msgstr "Клієнт"
 
 #. module: st_calculation
-#: model:ir.model.constraint,message:st_calculation.constraint_quotation_calculation_partner_ext_id_unique
-msgid "Customer external id must be unique!"
-msgstr "Зовнішній ідентифікатор клієнта повинен бути унікальним!"
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned_status_change
+msgid "Dear"
+msgstr ""
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_calculation_kanban_view
+msgid "Delete"
+msgstr "Видалити"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__delivery_cost
 msgid "Delivery Cost"
 msgstr "Вартість доставки"
+
+#. module: st_calculation
+#: model:res.groups,name:st_calculation.calculation_director_user
+msgid "Director"
+msgstr "Директор"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_additional_service__display_name
@@ -284,15 +340,29 @@ msgstr ""
 
 #. module: st_calculation
 #: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state__draft
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state_order_num__0
 msgid "Draft"
 msgstr "Чернетка"
 
 #. module: st_calculation
+#: model:mail.template,name:st_calculation.email_notification_template
+msgid "EMAIL Notification"
+msgstr ""
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_calculation_kanban_view
+msgid "Edit"
+msgstr "Редагувати"
+
+#. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__partner_ext_id
-#: model:ir.model.fields,field_description:st_calculation.field_res_partner__external_id
-#: model:ir.model.fields,field_description:st_calculation.field_res_users__external_id
 msgid "External ID"
 msgstr "Зовнішній ID"
+
+#. module: st_calculation
+#: model:ir.model.fields,help:st_calculation.field_quotation_calculation__state_order_num
+msgid "Field for ordering state in kanban view"
+msgstr "Поле для впорядкування статусу у вигляді канбан"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__message_follower_ids
@@ -323,6 +393,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__height
 msgid "Height"
 msgstr "В"
+
+#. module: st_calculation
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__priority__2
+msgid "High"
+msgstr "Високий"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_additional_service__id
@@ -356,6 +431,8 @@ msgstr ""
 
 #. module: st_calculation
 #: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state__in_production
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state_order_num__2
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "In Production"
 msgstr "На виробництві"
 
@@ -363,6 +440,11 @@ msgstr "На виробництві"
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__in_production_date
 msgid "In Production Date"
 msgstr "Дата передачі на виробництво"
+
+#. module: st_calculation
+#: model:res.groups,name:st_calculation.calculation_inventory_user
+msgid "Inventory"
+msgstr "Склад"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__message_is_follower
@@ -396,6 +478,21 @@ msgstr "Д"
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__loaded_qty
 msgid "Loaded Qty"
 msgstr "К-ть на завантаження"
+
+#. module: st_calculation
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__priority__0
+msgid "Low"
+msgstr "Низький"
+
+#. module: st_calculation
+#: model:res.groups,name:st_calculation.calculation_manager_user
+msgid "Manager"
+msgstr "Менеджер"
+
+#. module: st_calculation
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__priority__1
+msgid "Medium"
+msgstr "Середній"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__message_has_error
@@ -433,11 +530,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__name
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__name
 #: model:ir.model.fields,field_description:st_calculation.field_service_color__name
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "Name"
 msgstr "Назва"
 
 #. module: st_calculation
 #: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state__new
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__state_order_num__1
 msgid "New"
 msgstr "Новий"
 
@@ -472,6 +571,11 @@ msgid "Note"
 msgstr "Примітки"
 
 #. module: st_calculation
+#: model:mail.template,description:st_calculation.email_notification_template
+msgid "Notification Email"
+msgstr ""
+
+#. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
@@ -494,18 +598,40 @@ msgstr ""
 #. module: st_calculation
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "Partner Ext. id"
-msgstr ""
+msgstr "Зовнішній ID Клієнта"
+
+#. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__priority
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
+msgid "Priority"
+msgstr "Приорітет"
 
 #. module: st_calculation
 #: model:ir.model,name:st_calculation.model_product_template
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__product_id
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "Product"
-msgstr "Деталь"
+msgstr "Товар"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__product_code
 msgid "Product Code"
 msgstr "Номер деталі"
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_form_view
+msgid "Product Name"
+msgstr ""
+
+#. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__product_template_id
+msgid "Product Template"
+msgstr ""
+
+#. module: st_calculation
+#: model:res.groups,name:st_calculation.calculation_production_user
+msgid "Production"
+msgstr "Виробництво"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__qty
@@ -514,6 +640,7 @@ msgstr "К-ть"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__sale_order_id
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "Quotation"
 msgstr "Комерційна пропозиція"
 
@@ -525,7 +652,7 @@ msgstr "Комерційна пропозиція"
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_tree_view
 msgid "Quotation Calculation"
-msgstr "Розрахунок"
+msgstr "Розрахунки"
 
 #. module: st_calculation
 #: model:ir.model,name:st_calculation.model_quotation_calculation_line
@@ -534,7 +661,6 @@ msgstr ""
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__rq_number
-#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "RQ"
 msgstr ""
 
@@ -559,11 +685,6 @@ msgid "SMS Delivery error"
 msgstr ""
 
 #. module: st_calculation
-#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
-msgid "Quotation"
-msgstr "Комерційна пропозиція"
-
-#. module: st_calculation
 #: model:ir.model,name:st_calculation.model_sale_order
 msgid "Sales Order"
 msgstr "Замовлення на продаж"
@@ -576,7 +697,13 @@ msgstr "Рядок замовлення"
 #. module: st_calculation
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_form_view
 msgid "Send Email with Calculation to Client and move to status 'Sent'"
-msgstr "Відправлення листа з розрахунком клієнту та перехід до статусу 'Відправлено'"
+msgstr ""
+"Відправлення листа з розрахунком клієнту та перехід до статусу 'Відправлено'"
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
+msgid "Sent"
+msgstr "Відправлено"
 
 #. module: st_calculation
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_form_view
@@ -596,10 +723,20 @@ msgid "Shape"
 msgstr "Форма"
 
 #. module: st_calculation
+#: model:coating.type,name:st_calculation.st_calculation_coating_type_splash_anodizing
+msgid "Splash анодування "
+msgstr ""
+
+#. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__state
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
 msgid "State"
 msgstr "Статус"
+
+#. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__state_order_num
+msgid "State Order Num"
+msgstr ""
 
 #. module: st_calculation
 #: model:ir.model.fields,help:st_calculation.field_quotation_calculation__activity_state
@@ -614,6 +751,25 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_form_view
 msgid "Terms and conditions..."
 msgstr "Умови та положення..."
+
+#. module: st_calculation
+#. odoo-python
+#: code:addons/st_calculation/models/product_template.py:0
+#, python-format
+msgid ""
+"The product already exists in records. You may delete these records and "
+"change the customer or create a new product instead"
+msgstr ""
+
+#. module: st_calculation
+#: model_terms:ir.ui.view,arch_db:st_calculation.st_calculation_kanban_view
+msgid "This bar allows to filter the calculation based on Status."
+msgstr "Ця панель дозволяє фільтрувати розрахунки на основі статусу."
+
+#. module: st_calculation
+#: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation_line__tmp_field
+msgid "Tmp Field"
+msgstr ""
 
 #. module: st_calculation
 #: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_form_view
@@ -635,6 +791,11 @@ msgstr "Сума прорахунку"
 #: model:ir.model.fields,help:st_calculation.field_quotation_calculation__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
+
+#. module: st_calculation
+#: model:ir.model.fields.selection,name:st_calculation.selection__quotation_calculation__priority__3
+msgid "Very High"
+msgstr "Дуже високий"
 
 #. module: st_calculation
 #: model:ir.model.fields,field_description:st_calculation.field_quotation_calculation__website_message_ids
@@ -660,6 +821,14 @@ msgstr "Ш"
 #. odoo-python
 #: code:addons/st_calculation/models/quotation_calculation.py:0
 #, python-format
+msgid "You can not move status to 'Calculated' without calculation lines."
+msgstr "Ви не можете змінити статус на 'Розраховано' без доданих деталей."
+
+#. module: st_calculation
+#. odoo-python
+#: code:addons/st_calculation/models/quotation_calculation.py:0
+#: code:addons/st_calculation/models/quotation_calculation.py:0
+#, python-format
 msgid ""
 "You can not move status to 'In Production' without assigned department."
 msgstr ""
@@ -669,21 +838,110 @@ msgstr ""
 #. odoo-python
 #: code:addons/st_calculation/models/quotation_calculation.py:0
 #, python-format
-msgid ""
-"You can not move status to 'In Production' without calculation lines."
-msgstr ""
-"Ви не можете змінити статус на 'На Виробництві' без доданих деталей."
+msgid "You can not move status to 'In Production' without calculation lines."
+msgstr "Ви не можете змінити статус на 'На Виробництві' без доданих деталей."
 
 #. module: st_calculation
-#. odoo-python
-#: code:addons/st_calculation/models/quotation_calculation.py:0
-#, python-format
-msgid ""
-"You can not move status to 'Calculated' without calculation lines."
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned
+msgid "You have been assigned to the"
 msgstr ""
-"Ви не можете змінити статус на 'Розраховано' без доданих деталей."
 
 #. module: st_calculation
-#: model_terms:ir.ui.view,arch_db:st_calculation.st_quotation_calculation_search_view
-msgid "name"
-msgstr "Назва"
+#: model_terms:ir.ui.view,arch_db:st_calculation.calculation_message_user_assigned_status_change
+msgid "status has been change to '"
+msgstr ""
+
+#. module: st_calculation
+#: model:additional.service,name:st_calculation.st_calculation_additional_service_titanium_anodizing
+msgid "Анодування титану"
+msgstr ""
+
+#. module: st_calculation
+#: model:coating.type,name:st_calculation.st_calculation_coating_type_columnless_anodizing
+msgid "Безколурне анодування"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_green
+msgid "Зелений"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_gold
+msgid "Золотий"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_camo
+msgid "Камо"
+msgstr ""
+
+#. module: st_calculation
+#: model:coating.type,name:st_calculation.st_calculation_coating_type_color_anodizing
+msgid "Кольорове анодування"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_olive
+msgid "Олива"
+msgstr ""
+
+#. module: st_calculation
+#: model:additional.service,name:st_calculation.st_calculation_additional_service_aluminum_passivation
+msgid "Пасивація алюмінію"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_orange
+msgid "Помаранчевий"
+msgstr ""
+
+#. module: st_calculation
+#: model:additional.service,name:st_calculation.st_calculation_additional_service_powder_painting
+msgid "Порошкове фарбування "
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_blue
+msgid "Синій"
+msgstr ""
+
+#. module: st_calculation
+#: model:additional.service,name:st_calculation.st_calculation_additional_service_glass_jet_processing
+msgid "Скло-струменева обробка"
+msgstr ""
+
+#. module: st_calculation
+#: model:coating.type,name:st_calculation.st_calculation_coating_type_hard_anodizing
+msgid "Тверде анодування"
+msgstr ""
+
+#. module: st_calculation
+#: model:additional.service,name:st_calculation.st_calculation_additional_service_etching
+msgid "Травлення"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_purple
+msgid "Фіолетовий"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_red
+msgid "Червоний"
+msgstr ""
+
+#. module: st_calculation
+#: model:coating.type,name:st_calculation.st_calculation_coating_type_black_anodizing
+msgid "Чорне анодування"
+msgstr ""
+
+#. module: st_calculation
+#: model:coating.type,name:st_calculation.st_calculation_coating_type_black_hard_anodizing
+msgid "Чорне тверде анодування"
+msgstr ""
+
+#. module: st_calculation
+#: model:service.color,name:st_calculation.st_calculation_color_black
+msgid "Чорний"
+msgstr ""
